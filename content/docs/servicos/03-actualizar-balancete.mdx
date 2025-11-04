@@ -1,0 +1,77 @@
+---
+title: Actualizar Balancete
+---
+
+# Actualizar Balancete (POST: /reportes/balancete/updateBalancete)
+
+**Descrição:**  
+Permite que a entidade supervisionada actualize dados de um balancete previamente submetido.
+
+O token obtido no login deve ser enviado no cabeçalho `Authorization: Bearer <token>`.
+
+---
+
+## Contexto de utilização
+
+- Destinado a correção ou atualização de balancetes já submetidos.
+- Pode enviar apenas grupos específicos (ex.: passivos) sem reenviar o balancete completo.
+
+## Regras de negócio relevantes
+
+- Campos sem movimento devem ser preenchidos com 0.
+- Submissões incompletas ou inválidas retornam erro 400.
+- Atualização sem token válido retorna erro 401.
+- Sucesso retorna 200 OK ou 201 Created.
+
+---
+
+## Propriedades do Serviço
+
+| Nome            | Valor                                                              | Descrição               |
+| --------------- | ------------------------------------------------------------------ | ----------------------- |
+| Método HTTP     | POST                                                               | Atualização de dados    |
+| Cabeçalho       | Content-Type: application/json                                     | Corpo em JSON           |
+| Autorização     | Bearer Token                                                       | Tipo de autenticação    |
+| URL Produção    | https://reportes.cmc.ao/api/v1/reportes/balancete/updateBalancete  | Endpoint de atualização |
+| URL Homologação | https://reportes.cmc.ao/api/hml/reportes/balancete/updateBalancete | Endpoint de teste       |
+
+---
+
+## Campos de Entrada
+
+| Nome                | Descrição                       | Tipo    | Preenchimento | Exemplo          |
+| ------------------- | ------------------------------- | ------- | ------------- | ---------------- |
+| conta               | Número da Conta Principal       | String  | Obrigatório   | 1.1              |
+| conta_principal     | Descrição da Conta Principal    | String  | Obrigatório   | DISPONIBILIDADES |
+| num_subconta        | Número da Subconta              | String  | Obrigatório   | 1.10.10          |
+| subconta            | Descrição da Subconta           | String  | Obrigatório   | NUMERÁRIO        |
+| num_conta_movimento | Número da Subconta de Movimento | String  | Obrigatório   | 1.10.10          |
+| nome_conta          | Nome da Subconta de Movimento   | String  | Obrigatório   | Numerário        |
+| debito              | Valor de débito                 | Decimal | Obrigatório   | 5988509825.11    |
+| credito             | Valor de crédito                | Decimal | Obrigatório   | 2988509825.11    |
+| saldo               | Saldo resultante                | Decimal | Obrigatório   | 3000000000.00    |
+
+---
+
+## Exemplo de Requisição
+
+```json
+{
+  "ano": 2025,
+  "trimestre": 2,
+  "activos": [
+    {
+      "num_conta": "1.1",
+      "conta_principal": "DISPONIBILIDADES",
+      "num_subconta": "1.10.10",
+      "subconta": "NUMERÁRIO",
+      "num_conta_movimento": "1.10.10",
+      "nome_conta": "Numerário",
+      "debito": 60000,
+      "credito": 10000,
+      "saldo": 50000
+    }
+  ]
+  ...restantes movimentos.
+}
+```

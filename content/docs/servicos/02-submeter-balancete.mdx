@@ -1,0 +1,102 @@
+---
+title: Submeter Balancete
+---
+
+# Submeter Balancete (POST: /reportes/balancetes)
+
+**Descrição:**  
+Permite que a entidade supervisionada envie o seu balancete financeiro para o sistema de reporte da CMC.
+
+Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint de login para obter um token de acesso. Esse token deve ser enviado no cabeçalho `Authorization: Bearer <token>`.
+
+> **Observação:** Todo o reporte deve ser enviado em formato `.JSON`. O modelo Excel disponibilizado serve apenas como referência para estruturação de dados.
+
+**URLs de referência de modelo:**
+
+- Modelo Excel: [https://www.cmc.ao/reportes/docs/sira-balancete-excel-modelo.php](https://www.cmc.ao/reportes/docs/sira-balancete-excel-modelo.php)
+- Modelo JSON (teste): [https://cmc.ao/reportes/docs/sira-balancete-json-modelo.php](https://cmc.ao/reportes/docs/sira-balancete-json-modelo.php)
+
+---
+
+## Contexto de utilização
+
+- Destinado a entidades supervisionadas que reportam trimestralmente os balancetes financeiros à CMC.
+- Deve ser usado sempre que houver um balancete completo para submissão, garantindo conformidade regulatória.
+
+## Regras de negócio relevantes
+
+- O balancete deve conter todos os movimentos contabilísticos do período reportado.
+- Submissões trimestrais devem ser feitas até o dia 8 após o fim do trimestre.
+- Campos numéricos sem movimento devem ser preenchidos com 0.
+- Submissões incompletas ou inválidas retornam erro 400.
+- Envio sem token válido retorna erro 401.
+- Tentativa de submissão de período já submetido retorna erro 409 (Conflict).
+- Sucesso retorna 200 OK ou 201 Created.
+- Limite de submissões: 3 tentativas consecutivas; na 4ª, aguardar 5 minutos.
+- Validação contábil: `=(Activo - Passivo – Fundos Próprios - (Proveitos - Despesas))`; se >1000, retorna erro.
+
+---
+
+## Propriedades do Serviço
+
+| Nome            | Valor                                              | Descrição             |
+| --------------- | -------------------------------------------------- | --------------------- |
+| Método HTTP     | POST                                               | Submissão de dados    |
+| Cabeçalho       | Content-Type: application/json                     | Corpo em JSON         |
+| Autorização     | Bearer Token                                       | Tipo de autenticação  |
+| URL Produção    | https://reportes.cmc.ao/api/v1/reportes/balancete  | Endpoint de submissão |
+| URL Homologação | https://reportes.cmc.ao/api/hml/reportes/balancete | Endpoint de teste     |
+
+---
+
+## Campos de Entrada
+
+| Nome                | Descrição                       | Tipo    | Preenchimento | Exemplo          |
+| ------------------- | ------------------------------- | ------- | ------------- | ---------------- |
+| conta               | Número da Conta Principal       | String  | Obrigatório   | 1.1              |
+| conta_principal     | Descrição da Conta Principal    | String  | Obrigatório   | DISPONIBILIDADES |
+| num_subconta        | Número da Subconta              | String  | Obrigatório   | 1.10.10          |
+| subconta            | Descrição da Subconta           | String  | Obrigatório   | NUMERÁRIO        |
+| num_conta_movimento | Número da Subconta de Movimento | String  | Obrigatório   | 1.10.10          |
+| nome_conta          | Nome da Subconta de Movimento   | String  | Obrigatório   | Numerário        |
+| debito              | Valor de débito                 | Decimal | Obrigatório   | 5988509825.11    |
+| credito             | Valor de crédito                | Decimal | Obrigatório   | 2988509825.11    |
+| saldo               | Saldo resultante                | Decimal | Obrigatório   | 3000000000.00    |
+
+---
+
+## Exemplo de Requisição
+
+```json
+{
+  "ano": 2025,
+  "trimestre": 2,
+  "activos": [
+    {
+      "num_conta": "1.1",
+      "conta_principal": "DISPONIBILIDADES",
+      "num_subconta": "1.10.10",
+      "subconta": "NUMERÁRIO",
+      "num_conta_movimento": "1.10.10",
+      "nome_conta": "Numerário",
+      "debito": 60000,
+      "credito": 10000,
+      "saldo": 50000
+    }
+  ]
+  ...restantes movimentos.
+}
+```
+
+## Exemplo de Resposta
+
+```json
+{
+  "sucesso": true,
+  "mensagem": "Balancete submetido com sucesso.",
+  "dados": {
+    "status": "SUBMETIDO"
+  },
+  "erros": []
+}
+```

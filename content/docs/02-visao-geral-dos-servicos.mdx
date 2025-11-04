@@ -1,0 +1,20 @@
+---
+title: Visão Geral dos Serviços
+---
+
+# Visão Geral dos Serviços
+
+Todos os serviços da API devem ser submetidos no formato `.JSON` e seguem um padrão unificado de implementação.
+
+Cada serviço (endpoint) é documentado de forma a incluir:
+
+- **Descrição**: Explica a finalidade do serviço, ou seja, o que o endpoint faz e qual problema resolve.
+- **Contexto de utilização**: Define quem deve utilizar o serviço e em que situações.
+- **Regras de negócio relevantes**: Inclui quaisquer restrições, pré-requisitos ou comportamentos especiais.
+- **Propriedades do Endpoint**:
+  - **Método HTTP**: Define a ação que o utilizador deseja realizar (GET, POST, PUT, DELETE).
+  - **Cabeçalhos (Headers)**: Contém informações adicionais necessárias para a requisição, como tipo de conteúdo ou token de autenticação.
+  - **URL**: O endereço completo do endpoint, que deve ser acedido via HTTPS.
+
+**Exemplo:**  
+O endpoint de login permite que o utilizador se autentique no sistema enviando o seu e-mail e password. O token retornado é obrigatório para aceder a outros endpoints protegidos da API, garantindo que apenas utilizadores autorizados interajam com o sistema.

@@ -1,0 +1,78 @@
+---
+title: Listar Balancetes por Trimestre
+---
+
+# Listar Balancetes por Trimestre (GET /reportes/balancete/ANO/PERIODO)
+
+**Descrição:**  
+Permite que a entidade supervisionada obtenha a lista de balancetes submetidos, filtrando por ano e trimestre.
+
+O token do login deve ser enviado no cabeçalho `Authorization: Bearer <token>`.
+
+---
+
+## Contexto de utilização
+
+- Consultar balancetes submetidos por período.
+- Visualizar status e gerar relatórios internos.
+
+## Regras de negócio relevantes
+
+- Apenas entidades autenticadas podem consultar; caso contrário, retorna 401.
+- O utilizador só visualiza os seus próprios balancetes.
+- Cada balancete inclui status SUBMETIDO ou ACTUALIZADO.
+- Sucesso retorna 200 OK.
+
+---
+
+## Propriedades do Serviço
+
+| Nome            | Valor                                                          | Descrição              |
+| --------------- | -------------------------------------------------------------- | ---------------------- |
+| Método HTTP     | GET                                                            | Solicitação de dados   |
+| Cabeçalho       | Content-Type: application/json                                 | Corpo em JSON          |
+| Autorização     | Bearer Token                                                   | Tipo de autenticação   |
+| URL Produção    | https://reportes.cmc.ao/api/v1/reportes/balancete/ANO/PERIODO  | Listagem por trimestre |
+| URL Homologação | https://reportes.cmc.ao/api/hml/reportes/balancete/ANO/PERIODO | Endpoint de teste      |
+
+---
+
+## Campos de Entrada
+
+| Nome    | Descrição            | Tipo    | Preenchimento | Exemplo |
+| ------- | -------------------- | ------- | ------------- | ------- |
+| Ano     | Ano do reporte       | Inteiro | Obrigatório   | 2025    |
+| Período | Trimestre do reporte | Inteiro | Obrigatório   | 2       |
+
+> **Nota:** Nenhum dado deve ser enviado no corpo da requisição; os parâmetros vão na URL.
+
+---
+
+## Exemplo de Resposta
+
+```json
+{
+  "sucesso": true,
+  "mensagem": "Balancete por trimestre obtido com sucesso.",
+  "dados": [
+    {
+      "ano": 2025,
+      "trimestre": 1,
+      "entidade_id": 1,
+      "activos": [
+        {
+          "num_conta": "1.1",
+          "conta_principal": "DISPONIBILIDADES",
+          "subconta": "NUMERÁRIO",
+          "num_conta_movimento": "1.10.10",
+          "nome_conta": "Numerário",
+          "debito": 60000,
+          "credito": 10000,
+          "saldo": 50000
+        }
+      ]
+      ...restantes movimentos.
+    }
+  ]
+}
+```

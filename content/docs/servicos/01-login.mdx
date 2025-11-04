@@ -1,0 +1,60 @@
+---
+title: Login
+---
+
+# Login (POST: /auth/login)
+
+**Descrição:**  
+Permite que o utilizador se autentique no sistema, enviando as suas credenciais (e-mail e password) para obter uma chave de acesso (token). Esta chave é obrigatória para aceder aos outros serviços da API.
+
+## Contexto de utilização
+
+- Destinado a entidades supervisionadas e utilizadores autorizados para envio ou consulta de reportes.
+- Deve ser utilizado sempre que um novo token é necessário, como na primeira autenticação ou após expiração do token anterior.
+
+## Regras de negócio relevantes
+
+- O token retornado expira após 15 minutos.
+- O token deve ser enviado em todas as requisições subsequentes no cabeçalho.
+- Credenciais inválidas resultam em erro 401 (Unauthorized).
+- São permitidas 3 tentativas de login consecutivas; na 4ª tentativa, a conta fica bloqueada.
+- Limite de sessões consecutivas: 3, na 4ª o utilizador aguarda 5 minutos.
+
+## Propriedades do Serviço
+
+| Nome            | Valor                                      | Descrição                                 |
+| --------------- | ------------------------------------------ | ----------------------------------------- |
+| Método HTTP     | POST                                       | Envia dados ao servidor para autenticação |
+| Cabeçalho       | Content-Type: application/json             | Define que o corpo é JSON                 |
+| Autorização     | Bearer Token                               | Tipo de autenticação                      |
+| URL Produção    | https://reportes.cmc.ao/api/v1/auth/login  | Endpoint de login                         |
+| URL Homologação | https://reportes.cmc.ao/api/hml/auth/login | Endpoint de teste                         |
+
+## Campos de Entrada
+
+| Nome     | Descrição                   | Tipo   | Preenchimento |
+| -------- | --------------------------- | ------ | ------------- |
+| email    | Identificador do utilizador | String | Obrigatório   |
+| password | Password de acesso          | String | Obrigatório   |
+
+## Exemplo de Requisição
+
+```json
+{
+  "email": "utilizador@exemplo.com",
+  "password": "senhaSegura@123"
+}
+```
+
+## Exemplo de Resposta
+
+```json
+{
+  "message": "Login efectuado com sucesso",
+  "token": "73Uyshuy#78…",
+  "user": {
+    "email": "utilizador@exemplo.com",
+    "name": "Entidade 123"
+  }
+}
+```
