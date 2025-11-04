@@ -13,27 +13,27 @@ O token obtido no login deve ser enviado no cabeçalho `Authorization: Bearer <t
 
 ## Contexto de utilização
 
-- Destinado a correção ou atualização de balancetes já submetidos.
+- Destinado a correcção ou actualização de balancetes já submetidos.
 - Pode enviar apenas grupos específicos (ex.: passivos) sem reenviar o balancete completo.
 
 ## Regras de negócio relevantes
 
 - Campos sem movimento devem ser preenchidos com 0.
 - Submissões incompletas ou inválidas retornam erro 400.
-- Atualização sem token válido retorna erro 401.
+- Actualização sem token válido retorna erro 401.
 - Sucesso retorna 200 OK ou 201 Created.
 
 ---
 
 ## Propriedades do Serviço
 
-| Nome            | Valor                                                              | Descrição               |
-| --------------- | ------------------------------------------------------------------ | ----------------------- |
-| Método HTTP     | POST                                                               | Atualização de dados    |
-| Cabeçalho       | Content-Type: application/json                                     | Corpo em JSON           |
-| Autorização     | Bearer Token                                                       | Tipo de autenticação    |
-| URL Produção    | https://reportes.cmc.ao/api/v1/reportes/balancete/updateBalancete  | Endpoint de atualização |
-| URL Homologação | https://reportes.cmc.ao/api/hml/reportes/balancete/updateBalancete | Endpoint de teste       |
+| Nome            | Valor                                                              | Descrição                |
+| --------------- | ------------------------------------------------------------------ | ------------------------ |
+| Método HTTP     | POST                                                               | Actualização de dados    |
+| Cabeçalho       | Content-Type: application/json                                     | Corpo em JSON            |
+| Autorização     | Bearer Token                                                       | Tipo de autenticação     |
+| URL Produção    | https://reportes.cmc.ao/api/v1/reportes/balancete/updateBalancete  | Endpoint de actualização |
+| URL Homologação | https://reportes.cmc.ao/api/hml/reportes/balancete/updateBalancete | Endpoint de teste        |
 
 ---
 
