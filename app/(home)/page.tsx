@@ -5,11 +5,11 @@ export default function HomePage() {
     <div className="flex flex-col justify-center text-center flex-1">
       <h1 className="text-2xl font-bold mb-4">Página Inicial</h1>
       <p>
-        You can open{" "}
+        Poderá visualizar as páginas no endereço{" "}
         <Link href="/docs" className="font-medium underline">
           /docs
         </Link>{" "}
-        and see the documentation.
+        e visualizar todos os serviços e funcionalidades da API.
       </p>
     </div>
   );
