@@ -1,0 +1,43 @@
+---
+title: Glossário
+---
+
+Esta secção apresenta os principais termos técnicos utilizados na documentação e nos serviços da API de Reportes da CMC.
+
+| **Termo**                                   | **Definição**                                                                                                                                                |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Activo**                                  | Conjunto de bens, direitos e recursos financeiros controlados por uma entidade supervisionada.                                                               |
+| **Ambiente de Homologação/Teste**           | Ambiente controlado destinado à execução de testes antes da disponibilização dos serviços em produção. Exemplo: `https://reportes.cmc.ao/api/hml/...`        |
+| **Ambiente de Produção**                    | Ambiente oficial onde os serviços e reportes são executados e armazenados em caráter definitivo. Exemplo: `https://reportes.cmc.ao/api/v1/...`               |
+| **API (Application Programming Interface)** | Conjunto de rotinas e padrões que permitem a comunicação entre sistemas distintos. No contexto da CMC, é usada para reporte automático de dados financeiros. |
+| **Autenticação**                            | Processo de validação de identidade do utilizador mediante envio de credenciais (e-mail e senha) para obtenção de um token de acesso.                        |
+| **Authorization Type (Bearer Token)**       | Tipo de autenticação onde o utilizador envia um token válido no cabeçalho da requisição para aceder a serviços protegidos da API.                            |
+| **Balancete**                               | Relatório contabilístico que resume, num determinado período, os saldos das contas de uma entidade supervisionada.                                           |
+| **Bearer Token**                            | Token de autenticação temporário usado para validar o acesso do utilizador aos endpoints da API. Deve ser incluído no cabeçalho da requisição.               |
+| **Cabeçalho (Header)**                      | Parte da requisição HTTP que contém informações adicionais, como tipo de conteúdo e credenciais de autenticação.                                             |
+| **Campo Obrigatório**                       | Campo cuja omissão invalida a requisição, resultando em erro de validação (por exemplo, erro 400).                                                           |
+| **CMC (Comissão do Mercado de Capitais)**   | Autoridade supervisora e reguladora do mercado de valores mobiliários em Angola, responsável pela fiscalização e padronização dos reportes.                  |
+| **Conteúdo JSON**                           | Formato de intercâmbio de dados estruturado (JavaScript Object Notation), usado nas requisições e respostas da API.                                          |
+| **Credenciais**                             | Conjunto de dados (e-mail e senha) fornecidos pelo utilizador para autenticação no sistema.                                                                  |
+| **Endpoint**                                | URL de um serviço específico da API que executa uma função definida, como login, submissão ou listagem de balancetes.                                        |
+| **Erro 400 (Bad Request)**                  | Erro retornado quando há falhas de validação, campos ausentes ou formato de dados incorreto.                                                                 |
+| **Erro 401 (Unauthorized)**                 | Erro retornado quando o token de autenticação é inválido ou ausente.                                                                                         |
+| **Erro 409 (Conflict)**                     | Erro retornado quando o balancete submetido já existe para o mesmo período.                                                                                  |
+| **Formato Decimal**                         | Representação numérica que utiliza ponto (.) como separador decimal e não permite separadores de milhar.                                                     |
+| **Header (Cabeçalho)**                      | Parte da requisição HTTP que contém informações sobre autenticação e tipo de conteúdo.                                                                       |
+| **Homologação**                             | Fase de testes em ambiente controlado antes da implementação em produção.                                                                                    |
+| **JSON (JavaScript Object Notation)**       | Formato leve de troca de dados utilizado para enviar e receber informações na API.                                                                           |
+| **Método HTTP**                             | Indica a acção a ser executada pelo endpoint, como GET (consulta), POST (envio), PUT (atualização) e DELETE (remoção).                                       |
+| **Regras de Negócio**                       | Conjunto de condições e restrições que definem o comportamento e a lógica dos serviços da API.                                                               |
+| **Relatório Contabilístico**                | Documento que apresenta a situação financeira de uma entidade em determinado período.                                                                        |
+| **Submissão**                               | Acto de enviar dados (como balancetes) à CMC por meio dos endpoints da API.                                                                                  |
+| **Suporte Técnico**                         | Equipa responsável por esclarecer dúvidas, resolver problemas e prestar assistência às entidades supervisionadas.                                            |
+| **Token**                                   | Código de autenticação temporário que permite ao utilizador aceder aos serviços da API de forma segura.                                                      |
+| **Trimestre**                               | Unidade de tempo correspondente a três meses, utilizada como período de referência para os reportes financeiros.                                             |
+| **URL (Uniform Resource Locator)**          | Endereço da web que identifica a localização de um recurso na API.                                                                                           |
+| **Utilizador**                              | Pessoa autorizada pela entidade supervisionada para aceder ao sistema e enviar reportes financeiros.                                                         |
+| **Validação de Dados**                      | Processo automático de verificação que garante que os dados enviados cumprem as regras e formatos definidos.                                                 |
+
+---
+
+> **Nota:** Este glossário deve ser consultado sempre que houver dúvidas sobre os termos técnicos utilizados ao longo da documentação.
