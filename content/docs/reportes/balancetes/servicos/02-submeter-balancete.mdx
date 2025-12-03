@@ -51,6 +51,15 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 
 ## Campos de Entrada
 
+### Parâmetros Iniciais
+
+| Nome       | Descrição                                   | Tipo    | Preenchimento | Exemplo   |
+| ---------- | ------------------------------------------- | ------- | ------------- | --------- |
+| nome_fundo | Nome do Fundo ao qual o balancete se refere | String  | Opcional      | Fundo XYZ |
+| nif_fundo  | NIF do Fundo ao qual o balancete se refere  | Inteiro | Opcional      | 54000000  |
+
+### Parâmetros da Estrutura do Balancete
+
 | Nome                | Descrição                       | Tipo    | Preenchimento | Exemplo          |
 | ------------------- | ------------------------------- | ------- | ------------- | ---------------- |
 | conta               | Número da Conta Principal       | String  | Obrigatório   | 1.1              |
@@ -69,6 +78,8 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 
 ```json
 {
+  "nome_fundo": Fundo XYZ,
+  "nif_fundo": 54000000,
   "ano": 2025,
   "trimestre": 2,
   "activos": [
