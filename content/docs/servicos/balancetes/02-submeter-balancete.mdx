@@ -23,6 +23,8 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 - Destinado a entidades supervisionadas que reportam trimestralmente os balancetes financeiros à CMC.
 - Deve ser usado sempre que houver um balancete completo para submissão, garantindo conformidade regulatória.
 
+---
+
 ## Regras de negócio relevantes
 
 - O balancete deve conter todos os movimentos contabilísticos do período reportado.
@@ -33,7 +35,8 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 - Tentativa de submissão de período já submetido retorna erro 409 (Conflict).
 - Sucesso retorna 200 OK ou 201 Created.
 - Limite de submissões: 3 tentativas consecutivas; na 4ª, aguardar 5 minutos.
-- No balancete devem constar todos os grupos contabilísticos: `activos, passivos, compensacaoActiva, compensacaoPassiva, fundosProprios, resultados, fluxosDeCaixa.`
+- No balancete devem constar todos os grupos contabilísticos:  
+  `activos, passivos, compensacaoActiva, compensacaoPassiva, fundosProprios, resultados, fluxosDeCaixa.`
 
 ---
 
@@ -53,12 +56,15 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 
 ### Parâmetros Iniciais
 
-| Nome       | Descrição                                   | Tipo    | Preenchimento | Exemplo   |
-| ---------- | ------------------------------------------- | ------- | ------------- | --------- |
-| nome_fundo | Nome do Fundo ao qual o balancete se refere | String  | Opcional      | Fundo XYZ |
-| nif_fundo  | NIF do Fundo ao qual o balancete se refere  | Inteiro | Opcional      | 54000000  |
-| ano        | Ano do período de reporte                   | Inteiro | Obrigatório   | 2025      |
-| trimestre  | Trimestre do período de reporte (1 a 4)     | Inteiro | Obrigatório   | 3         |
+| Nome       | Descrição                                            | Tipo    | Preenchimento | Exemplo   |
+| ---------- | ---------------------------------------------------- | ------- | ------------- | --------- |
+| nome_fundo | Nome do Fundo ao qual o balancete se refere          | String  | Opcional      | Fundo XYZ |
+| nif_fundo  | NIF do Fundo ao qual o balancete se refere           | Inteiro | Opcional      | 54000000  |
+| valor_up   | Quantidade de Unidades de Participação (UP) do fundo | Inteiro | Obrigatório   | 660170    |
+| ano        | Ano do período de reporte                            | Inteiro | Obrigatório   | 2025      |
+| trimestre  | Trimestre do período de reporte (1 a 4)              | Inteiro | Obrigatório   | 3         |
+
+---
 
 ### Parâmetros da Estrutura do Balancete
 
@@ -80,8 +86,9 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 
 ```json
 {
-  "nome_fundo": Fundo XYZ,
+  "nome_fundo": "Fundo XYZ",
   "nif_fundo": 54000000,
+  "valor_up": 660170,
   "ano": 2025,
   "trimestre": 2,
   "activos": [
@@ -97,19 +104,6 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
       "saldo": 50000
     }
   ]
-  ...restantes movimentos.
-}
-```
-
-## Exemplo de Resposta
-
-```json
-{
-  "sucesso": true,
-  "mensagem": "Balancete submetido com sucesso.",
-  "dados": {
-    "status": "SUBMETIDO"
-  },
-  "erros": []
+  // ... restantes movimentos
 }
 ```

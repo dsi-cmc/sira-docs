@@ -2,23 +2,6 @@
 title: Página Inicial
 ---
 
-## Change Log v2.0.0
-
-### 📌 Actualização – Reporte de Balancetes
-
-**Inserções realizadas no reporte do balancete:**
-
-- Inclusão dos campos:
-  - **`nome_fundo`** (opcional) – Identificação do fundo sob gestão.
-  - **`nif_fundo`** (opcional) – Número de Identificação Fiscal (NIF) do fundo.
-
-  Estes campos permitem que a entidade supervisionada submeta balancetes **em nome dos fundos que estão sob sua gestão**.
-
-- Inclusão de novo parâmetro de entrada:
-  - **`valor_up`** (obrigatório) – Indica a **quantidade de Unidades de Participação (UP)** associadas ao fundo no momento do reporte.
-
----
-
 # Bem-vindo à Documentação da API de Reportes de Balancetes da CMC
 
 Esta documentação destina-se a entidades supervisionadas que precisam enviar, consultar e actualizar informações financeiras através da API oficial da **Comissão do Mercado de Capitais (CMC)**.
@@ -31,12 +14,10 @@ O sistema permite a troca estruturada de dados em formato **JSON**, garantindo s
 
 ### Serviços Principais
 
-- [Login](./docs/reportes/balancetes/servicos/01-login) – Autenticação e obtenção de token de acesso.
-- [Submeter Balancete](./docs/servicos/balancetes/02-submeter-balancete) – Submissão de balancetes financeiros.
-- [Actualizar Balancete](./docs/servicos/balancetes/03-actualizar-balancete) – Correção ou atualização de balancetes existentes.
-- [Listar Balancetes por Trimestre](./docs/servicos/balancetes/04-listar-balancetes) – Consulta de balancetes por ano e trimestre.
-
----
+- [Login](./docs/reportes/balancetes/servicos/01-login) - Autenticação e obtenção de token de acesso.
+- [Submeter Balancete](./docs/servicos/balancetes/02-submeter-balancete) - Submissão de balancetes financeiros.
+- [Actualizar Balancete](./docs/servicos/balancetes/03-actualizar-balancete) - Correção ou atualização de balancetes existentes.
+- [Listar Balancetes por Trimestre](./docs/servicos/balancetes/04-listar-balancetes) - Consulta de balancetes por ano e trimestre.
 
 ## Contactos e Suporte
 
@@ -52,3 +33,5 @@ Para dúvidas sobre o uso da API, reporte de problemas ou solicitações de supo
 - Utilize apenas o formato JSON para envio de balancetes.
 - Mantenha seu token de autenticação seguro e actualizado.
 - Valide todos os valores numéricos e campos obrigatórios de acordo com o plano contabilístico definido.
+
+---
