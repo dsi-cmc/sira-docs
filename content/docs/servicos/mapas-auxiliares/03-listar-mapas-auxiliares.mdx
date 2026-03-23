@@ -1,0 +1,58 @@
+---
+title: Listar Mapas Auxiliares
+---
+
+# (GET: /api/reportes/mapa-auxiliar/:ano/:trimestre)
+
+**Descrição:**  
+Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos OIC e imóveis) para um determinado período.
+
+---
+
+## Contexto de utilização
+
+- Utilizado para verificação interna ou confirmação de submissão.
+- Pode servir de base para exportação de dados para outros sistemas da entidade.
+
+## Regras de negócio relevantes
+
+- **Perímetro de Acesso:** O utilizador só consegue consultar os dados da própria entidade (baseado no token de autenticação).
+- **Parâmetros:** `ano` (ex: 2025) e `trimestre` (1 a 4) devem ser passados na URL.
+- **Filtros Adicionais:** Pode ser expandido futuramente para incluir filtros por NIF de participante.
+
+---
+
+## Propriedades do Serviço
+
+| Nome            | Valor                                                    | Descrição                           |
+| --------------- | --------------------------------------------------------| ----------------------------------- |
+| Método HTTP     | GET                                                     | Consulta de dados                   |
+| Autorização     | Bearer Token                                            | Obrigatório                         |
+| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar/\{ano\}/\{trimestre\} | Endpoint de consulta |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar/\{ano\}/\{trimestre\} | Endpoint de teste |
+
+---
+
+## Exemplo de Resposta (200 OK)
+
+```json
+{
+  "sucesso": true,
+  "mensagem": "Mapa auxiliar obtidos com sucesso.",
+  "dados": {
+    "ano": 2025,
+    "trimestre": 1,
+    "participantes": [
+      {
+        "id": 1,
+        "categoria_up": "Retalho",
+        "nome": "João Silva",
+        "nif": "123456789",
+        ...mais campos.
+      }
+    ],
+    "oicGeral": [...],
+    "oicImoveis": [...]
+  }
+}
+```

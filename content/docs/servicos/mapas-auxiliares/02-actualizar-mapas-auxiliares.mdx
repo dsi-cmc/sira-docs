@@ -1,0 +1,74 @@
+---
+title: Actualizar Mapas Auxiliares
+---
+
+# (POST: /api/reportes/mapa-auxiliar/update)
+
+**Descrição:**  
+Permite a actualização de registos já submetidos num determinado trimestre. Ao contrário da submissão inicial, este serviço permite enviar apenas os blocos de dados que necessitam de correcção (ex: apenas participantes ou apenas imóveis).
+
+---
+
+## Contexto de utilização
+
+- Utilizado para corrigir erros detectados após a submissão inicial.
+- Deve ser usado quando a entidade supervisionada identifica discrepâncias nos dados já enviados à CMC.
+
+## Regras de negócio relevantes
+
+- **Identificadores Únicos:** A actualização baseia-se em chaves únicas para cada tipo de registo:
+  - **Participantes:** Baseado no `NIF`.
+  - **OIC Geral:** Baseado no `indice`.
+  - **OIC Imóveis:** Baseado no `numero_imovel`.
+- **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `oicGeral`, `oicImoveis`).
+- **Data de Referência:** O `ano` e `trimestre` são obrigatórios para identificar o período a actualizar.
+- **Multa:** Se a actualização ocorrer após o prazo regulamentar, será registada "com multa".
+
+---
+
+## Propriedades do Serviço
+
+| Nome            | Valor                                                        | Descrição                           |
+| --------------- | ------------------------------------------------------------ | ----------------------------------- |
+| Método HTTP     | POST                                                         | Actualização de dados existentes    |
+| Cabeçalho       | Content-Type: application/json                               | Formato JSON                        |
+| Autorização     | Bearer Token                                                 | Obrigatório                         |
+| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar/update    | Endpoint oficial de actualização    |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar/update | Ambiente de testes                  |
+
+---
+
+## Exemplo de Requisição (Actualizar apenas Participantes)
+
+```json
+{
+  "ano": 2025,
+  "trimestre": 1,
+  "participantes": [
+    {
+      "categoria_up": "Retalho",
+      "nome": "Investidor Exemplo Actualizado",
+      "nif": "123456789",
+      "dt_subscricao": "2025-02-10",
+      "valor_nominal_up": 1100,
+      "quantidade_up_subscritas": 5,
+      "valor_subscrito": 5500,
+      "valor_liquidado": 5500,
+      "valor_actual_up": 1100,
+      "nivel_risco_BCFTPADM": "Médio"
+    }
+  ]
+}
+```
+
+## Exemplo de Resposta
+
+```json
+{
+  "sucesso": true,
+  "mensagem": "Mapa auxiliar actualizado com sucesso.",
+  "dados": {
+    "status": "ACTUALIZADO"
+  }
+}
+```

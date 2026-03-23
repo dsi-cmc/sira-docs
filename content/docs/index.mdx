@@ -19,11 +19,16 @@ title: Página Inicial
 
 ---
 
-# Bem-vindo à Documentação da API de Reportes de Balancetes da CMC
+> [!WARNING]
+> **Configuração de Firewall:** Para garantir a comunicação estável, certifique-se de que a firewall da sua entidade permite o tráfego de saída na porta **443 (HTTPS)** para os domínios `reportes.cmc.ao` e `reporteshml.cmc.ao`.
 
-Esta documentação destina-se a entidades supervisionadas que precisam enviar, consultar e actualizar informações financeiras através da API oficial da **Comissão do Mercado de Capitais (CMC)**.
+---
 
-O sistema permite a troca estruturada de dados em formato **JSON**, garantindo segurança, integridade e consistência das informações. Todos os processos de envio e consulta devem respeitar as regras de negócio estabelecidas.
+# Bem-vindo à Documentação da API de Reportes da CMC
+
+Esta documentação destina-se a entidades supervisionadas que precisam enviar, consultar e actualizar informações financeiras e auxiliares (Balancetes e Mapas Auxiliares) através da API oficial da **Comissão do Mercado de Capitais (CMC)**.
+
+O sistema permite a troca estruturada de dados em formato **JSON**, garantindo segurança, integridade e consistência das informações.
 
 ---
 
@@ -31,10 +36,12 @@ O sistema permite a troca estruturada de dados em formato **JSON**, garantindo s
 
 ### Serviços Principais
 
-- [Login](./docs/reportes/balancetes/servicos/01-login) – Autenticação e obtenção de token de acesso.
-- [Submeter Balancete](./docs/servicos/balancetes/02-submeter-balancete) – Submissão de balancetes financeiros.
-- [Actualizar Balancete](./docs/servicos/balancetes/03-actualizar-balancete) – Correção ou atualização de balancetes existentes.
-- [Listar Balancetes por Trimestre](./docs/servicos/balancetes/04-listar-balancetes) – Consulta de balancetes por ano e trimestre.
+- [Login](./servicos/login/01-login) – Autenticação e obtenção de token de acesso.
+- [Submeter Balancete](./servicos/balancetes/02-submeter-balancete) – Submissão de balancetes financeiros.
+- [Submeter Mapas Auxiliares](./servicos/mapas-auxiliares/01-submeter-mapas-auxiliares) – Envio de dados de participantes, activos OIC e imóveis.
+- [Actualizar Balancete](./servicos/balancetes/03-actualizar-balancete) – Correcção ou actualização de balancetes existentes.
+- [Listar Balancetes](./servicos/balancetes/04-listar-balancetes) – Consulta de balancetes por ano e trimestre.
+- [Apoio e Sugestões](./05-suporte) – Formulário para reportar problemas ou sugestões.
 
 ---
 
@@ -49,6 +56,7 @@ Para dúvidas sobre o uso da API, reporte de problemas ou solicitações de supo
 ## Boas Práticas
 
 - Sempre teste suas requisições em ambiente de homologação antes de enviar dados em produção.
-- Utilize apenas o formato JSON para envio de balancetes.
-- Mantenha seu token de autenticação seguro e actualizado.
-- Valide todos os valores numéricos e campos obrigatórios de acordo com o plano contabilístico definido.
+- Utilize exclusivamente o formato **JSON** para o envio de todos os reportes.
+- Mantenha o seu token de autenticação seguro.
+- Verifique a conectividade de rede (firewall) antes de iniciar os seus processos de reporte automáticos.
+- Valide todos os valores numéricos e campos obrigatórios de acordo com as especificações técnicas.

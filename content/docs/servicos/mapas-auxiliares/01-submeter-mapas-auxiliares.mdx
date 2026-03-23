@@ -1,0 +1,162 @@
+---
+title: Submeter Mapas Auxiliares
+---
+
+# (POST: /api/reportes/mapa-auxiliar)
+
+**Descrição:**  
+Este serviço permite a submissão dos mapas auxiliares obrigatórios, nomeadamente o Mapa de Participantes, Mapa OIC Geral e Mapa de Imóveis, conforme as normas de reporte vigentes.
+
+A submissão deve ser feita de forma agregada, contendo todos os registos para o período (ano e trimestre) especificado.
+
+> **Observação:** Todo o reporte deve ser enviado em formato `.JSON`. O modelo Excel disponibilizado serve apenas como referência para estruturação de dados.
+
+**URLs de referência de modelo (disponíveis em /exemplos):**
+
+- Modelo Excel: [/exemplos/mapa-auxiliar-modelo.xlsx](/exemplos/mapa-auxiliar-modelo.xlsx)
+- Modelo JSON (teste): [/exemplos/mapa-auxiliar.json](/exemplos/mapa-auxiliar.json)
+
+---
+
+## Contexto de utilização
+
+- Destinado a entidades supervisionadas (ex: Sociedades Gestoras de OIC) para o reporte periódico de dados auxiliares à CMC.
+- Deve ser utilizado sempre que houver novos dados relativos a participantes, activos gerais ou imóveis para o trimestre em curso.
+
+## Regras de negócio relevantes
+
+- **Unicidade:** Só é permitida uma submissão por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
+- **Formato:** Exclusivamente formato `.JSON`.
+- **Campos Obrigatórios:** Todos os arrays (`participantes`, `oicGeral`, `oicImoveis`) devem conter pelo menos um registo.
+- **Multa:** Se o reporte for submetido após o fecho do trimestre (8 dias após o fim do período), o sistema registará o envio "com multa".
+- **Autenticação:** Requer Bearer Token obtido no login.
+
+---
+
+## Propriedades do Serviço
+
+| Nome            | Valor                                                 | Descrição                           |
+| --------------- | ----------------------------------------------------- | ----------------------------------- |
+| Método HTTP     | POST                                                  | Criação de novos registos           |
+| Cabeçalho       | Content-Type: application/json                        | Define o formato como JSON          |
+| Autorização     | Bearer Token                                          | Obrigatório para acesso             |
+| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar    | Endpoint oficial de reporte         |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar | Ambiente de testes e integração     |
+
+---
+
+## Campos de Entrada (Estrutura JSON)
+
+### Objecto Principal
+| Nome          | Descrição                          | Tipo  | Preenchimento |
+| ------------- | ---------------------------------- | ----- | ------------- |
+| ano           | Ano do reporte (ex: 2025)          | Int   | Obrigatório   |
+| trimestre     | Trimestre (1 a 4)                  | Int   | Obrigatório   |
+| participantes | Lista de participantes do fundo    | Array | Obrigatório   |
+| oicGeral      | Lista de activos gerais            | Array | Obrigatório   |
+| oicImoveis    | Lista de activos imobiliários      | Array | Obrigatório   |
+
+### Participante (Item de `participantes`)
+| Nome             | Descrição                                 | Tipo    | Exemplo           |
+| ---------------- | ----------------------------------------- | ------- | ----------------- |
+| categoria_up     | Categoria da Unidade de Participação      | String  | Classe A          |
+| nome             | Nome completo do participante             | String  | João Silva        |
+| nif              | NIF do participante                       | String  | 000000000LA000    |
+| dt_subscricao    | Data da subscrição                        | Date    | 2025-01-15        |
+| valor_nominal_up | Valor nominal da UP                       | Decimal | 1000.00           |
+| quantidade_up    | Quantidade de UPs subscritas              | Decimal | 10                |
+| valor_subscrito  | Valor total subscrito                     | Decimal | 10000.00          |
+| valor_liquidado  | Valor já liquidado                        | Decimal | 10000.00          |
+| valor_actual_up  | Valor actual da UP                        | Decimal | 1050.00           |
+| nivel_risco      | Nível de risco (BCFT/PADM)                | String  | Baixo             |
+
+### OIC Geral (Item de `oicGeral`)
+| Nome      | Descrição                                      | Tipo    | Exemplo              |
+| --------- | ---------------------------------------------- | ------- | -------------------- |
+| indice    | Índice ou código do activo                     | String  | 1.1                  |
+| descricao | Descrição do activo                            | String  | Obrigações do Estado |
+| moeda     | Moeda de referência                            | String  | AKZ                  |
+| qtd_mnt   | Quantidade ou montante                         | Decimal | 100                  |
+| cotacao   | Cotação actual                                 | Decimal | 1200.00              |
+| valias    | Mais-valias ou menos-valias                    | Decimal | 500.00               |
+| valor     | Valor base                                     | Decimal | 120000.00            |
+| juro      | Juros acumulados                               | Decimal | 1000.00              |
+| total     | Valor total (Valor + Juro)                     | Decimal | 121000.00            |
+| peso      | Peso percentual na carteira                    | Decimal | 10.5                 |
+
+### OIC Imóveis (Item de `oicImoveis`)
+| Nome            | Descrição                                 | Tipo    | Exemplo              |
+| --------------- | ----------------------------------------- | ------- | -------------------- |
+| numero_imovel   | Número identificador do imóvel            | Inteiro | 1                    |
+| endereco        | Endereço completo                         | String  | Rua 12 de Julho, 45  |
+| localidade      | Cidade ou localidade                      | String  | Luanda               |
+| nome_perito_1   | Nome do primeiro perito avaliador         | String  | Carlos Mendes        |
+| nome_perito_2   | Nome do segundo perito avaliador          | String  | Ana Sousa            |
+| nome_perito_3   | Nome do terceiro perito avaliador         | String  | Pedro António        |
+| avaliacao_media | Média das avaliações                      | Decimal | 15000000.00          |
+| percentual      | Percentual de participação                | Decimal | 15.0                 |
+| data            | Data da última avaliação                  | Date    | 2025-10-01           |
+
+---
+
+## Exemplo de Requisição
+
+```json
+{
+  "ano": 2025,
+  "trimestre": 2,
+  "participantes": [
+    {
+      "categoria_up": "Categoria A",
+      "nome": "João Manuel Silva",
+      "nif": "5001234567",
+      "dt_subscricao": "2025-09-15",
+      "valor_nominal_up": 1000,
+      "quantidade_up_subscritas": 50,
+      "valor_subscrito": 50000,
+      "valor_liquidado": 50000,
+      "valor_actual_up": 52000,
+      "nivel_risco_BCFTPADM": "Médio"
+    }
+  ],
+  "oicGeral": [
+    {
+      "indice": "1.1",
+      "descricao": "Obrigações do Estado",
+      "moeda": "AKZ",
+      "qtd_mnt": 100,
+      "cotacao": 1500,
+      "valias": 500,
+      "valor": 150000,
+      "juro": 3000,
+      "total": 153000,
+      "peso": 10
+    }
+  ],
+  "oicImoveis": [
+    {
+      "numero_imovel": 1,
+      "endereco": "Rua 12 de Julho, nº 45",
+      "localidade": "Luanda",
+      "nome_perito_1": "Carlos Mendes",
+      "nome_perito_2": "Ana Sousa",
+      "nome_perito_3": "Pedro António",
+      "avaliacao_media": 15000000,
+      "percentual": 15,
+      "data": "2025-10-01"
+    }
+  ]
+}
+```
+
+## Exemplo de Resposta
+
+```json
+{
+  "sucesso": true,
+  "mensagem": "Mapa auxiliar submetido",
+  "dados": {
+    "status": "SUBMETIDO"
+  }
+}
+```
