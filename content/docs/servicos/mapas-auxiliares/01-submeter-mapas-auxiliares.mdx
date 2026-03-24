@@ -28,7 +28,7 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 - **Unicidade:** Só é permitida uma submissão por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
 - **Formato:** Exclusivamente formato `.JSON`.
 - **Campos Obrigatórios:** Todos os arrays (`participantes`, `oicGeral`, `oicImoveis`) devem conter pelo menos um registo.
-- **Multa:** Se o reporte for submetido após o fecho do trimestre (8 dias após o fim do período), o sistema registará o envio "com multa".
+- **Penalidade por Mora:** Se o reporte for submetido após o encerramento do trimestre (8 dias após o fim do período regulamentar), o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `SUBMETIDO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO`.
 - **Autenticação:** Requer Bearer Token obtido no login.
 
 ---
@@ -149,14 +149,14 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 }
 ```
 
-## Exemplo de Resposta
-
 ```json
 {
   "sucesso": true,
-  "mensagem": "Mapa auxiliar submetido",
+  "mensagem": "Mapa Auxiliar submetido com sucesso.",
   "dados": {
     "status": "SUBMETIDO"
   }
 }
 ```
+
+> **Nota:** Caso o reporte seja submetido após o prazo regulamentar, o campo `status` retornará o valor `"SUBMETIDO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO"`.

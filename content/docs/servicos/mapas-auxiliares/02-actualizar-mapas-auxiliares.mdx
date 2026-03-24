@@ -22,7 +22,7 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
   - **OIC Imóveis:** Baseado no `numero_imovel`.
 - **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `oicGeral`, `oicImoveis`).
 - **Data de Referência:** O `ano` e `trimestre` são obrigatórios para identificar o período a actualizar.
-- **Multa:** Se a actualização ocorrer após o prazo regulamentar, será registada "com multa".
+- **Penalidade por Mora:** Se a actualização ocorrer após o prazo regulamentar, o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `ACTUALIZADO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO`.
 
 ---
 
@@ -61,14 +61,14 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
 }
 ```
 
-## Exemplo de Resposta
-
 ```json
 {
   "sucesso": true,
-  "mensagem": "Mapa auxiliar actualizado com sucesso.",
+  "mensagem": "Mapa Auxiliar actualizado com sucesso.",
   "dados": {
     "status": "ACTUALIZADO"
   }
 }
 ```
+
+> **Nota:** Caso a actualização seja efectuada após o prazo regulamentar, o campo `status` retornará o valor `"ACTUALIZADO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO"`.
