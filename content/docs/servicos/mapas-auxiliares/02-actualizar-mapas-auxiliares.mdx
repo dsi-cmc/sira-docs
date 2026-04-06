@@ -22,7 +22,7 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
   - **OIC Imóveis:** Baseado no `numero_imovel`.
 - **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `oicGeral`, `oicImoveis`).
 - **Data de Referência:** O `ano` e `trimestre` são obrigatórios para identificar o período a actualizar.
-- **Penalidade por Mora:** Se a actualização ocorrer após o prazo regulamentar, o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `ACTUALIZADO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO`.
+- **Penalidade por Mora:** Se a actualização ocorrer após o prazo regulamentar, o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `ACTUALIZADO COM PENALIDADE`.
 
 ---
 
@@ -49,6 +49,8 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
       "categoria_up": "Retalho",
       "nome": "Investidor Exemplo Actualizado",
       "nif": "123456789",
+      "nif_fundo": "5000000001",
+      "nome_fundo": "Fundo Exemplo",
       "dt_subscricao": "2025-02-10",
       "valor_nominal_up": 1100,
       "quantidade_up_subscritas": 5,
@@ -71,4 +73,4 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
 }
 ```
 
-> **Nota:** Caso a actualização seja efectuada após o prazo regulamentar, o campo `status` retornará o valor `"ACTUALIZADO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO"`.
+> **Nota:** Caso a actualização seja efectuada após o prazo regulamentar, o campo `status` retornará o valor `"ACTUALIZADO COM PENALIDADE"`.

@@ -28,7 +28,7 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 - **Unicidade:** Só é permitida uma submissão por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
 - **Formato:** Exclusivamente formato `.JSON`.
 - **Campos Obrigatórios:** Todos os arrays (`participantes`, `oicGeral`, `oicImoveis`) devem conter pelo menos um registo.
-- **Penalidade por Mora:** Se o reporte for submetido após o encerramento do trimestre (8 dias após o fim do período regulamentar), o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `SUBMETIDO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO`.
+- **Penalidade por Mora:** Se o reporte for submetido após o encerramento do trimestre (8 dias após o fim do período regulamentar), o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `SUBMETIDO COM PENALIDADE`.
 - **Autenticação:** Requer Bearer Token obtido no login.
 
 ---
@@ -62,6 +62,8 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 | categoria_up     | Categoria da Unidade de Participação      | String  | Classe A          |
 | nome             | Nome completo do participante             | String  | João Silva        |
 | nif              | NIF do participante                       | String  | 000000000LA000    |
+| nif_fundo        | NIF do fundo regulamentado                | String  | 5000000001        |
+| nome_fundo       | Nome do fundo regulamentado               | String  | Fundo de Exemplo  |
 | dt_subscricao    | Data da subscrição                        | Date    | 2025-01-15        |
 | valor_nominal_up | Valor nominal da UP                       | Decimal | 1000.00           |
 | quantidade_up    | Quantidade de UPs subscritas              | Decimal | 10                |
@@ -110,6 +112,8 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
       "categoria_up": "Categoria A",
       "nome": "João Manuel Silva",
       "nif": "5001234567",
+      "nif_fundo": "5000000001",
+      "nome_fundo": "Fundo Exemplo",
       "dt_subscricao": "2025-09-15",
       "valor_nominal_up": 1000,
       "quantidade_up_subscritas": 50,
@@ -159,4 +163,4 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 }
 ```
 
-> **Nota:** Caso o reporte seja submetido após o prazo regulamentar, o campo `status` retornará o valor `"SUBMETIDO COM PENALIDADE POR INCUMPRIMENTO DO PRAZO"`.
+> **Nota:** Caso o reporte seja submetido após o prazo regulamentar, o campo `status` retornará o valor `"SUBMETIDO COM PENALIDADE"`.
