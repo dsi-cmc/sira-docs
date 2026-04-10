@@ -1,0 +1,238 @@
+
+    {
+  "ano": 2025,
+  "trimestre": 2,
+  "participantes": [
+    {
+      "categoria_up": "Categoria A",
+      "nome": "João Manuel Silva",
+      "nif": "5001234567",
+      "dt_subscricao": "2025-09-15",
+      "valor_nominal_up": 1000,
+      "quantidade_up_subscritas": 50,
+      "valor_subscrito": 50000,
+      "valor_liquidado": 50000,
+      "valor_actual_up": 52000,
+      "nivel_risco_BCFTPADM": "Médio"
+    },
+    {
+      "categoria_up": "Categoria B",
+      "nome": "Maria Fernanda Gomes",
+      "nif": "5009876543",
+      "dt_subscricao": "2025-07-10",
+      "valor_nominal_up": 2000,
+      "quantidade_up_subscritas": 30,
+      "valor_subscrito": 60000,
+      "valor_liquidado": 58000,
+      "valor_actual_up": 61000,
+      "nivel_risco_BCFTPADM": "Baixo"
+    }
+  ],
+  "oicGeral": [
+    {
+      "indice":"1",
+      "descricao": "INSTRUMENTOS FINANCEIROS NEGOCIADOS EM MERCADO REGULAMENTADO",
+      "moeda": "AKZ",
+      "qtd_mnt": 200,
+      "cotacao": 1200,
+      "valias": 1000,
+      "valor": 240000,
+      "juro": 5000,
+      "total": 245000,
+      "peso": 25
+    },
+    {
+      "indice": "1.1",
+      "descricao": "Obrigações do Estado",
+      "moeda": "AKZ",
+      "qtd_mnt": 100,
+      "cotacao": 1500,
+      "valias": 500,
+      "valor": 150000,
+      "juro": 3000,
+      "total": 153000,
+      "peso": 10
+    },
+    {
+      "indice": "1.2",
+      "descricao": "Títulos Cotados",
+      "moeda": "AKZ",
+      "qtd_mnt": 50,
+      "cotacao": 1800,
+      "valias": 400,
+      "valor": 90000,
+      "juro": 2000,
+      "total": 92000,
+      "peso": 5
+    },
+    {
+      "indice": "2",
+      "descricao": "OUTROS VALORES",
+      "moeda": "AKZ",
+      "qtd_mnt": 100,
+      "cotacao": 900,
+      "valias": 300,
+      "valor": 90000,
+      "juro": 1500,
+      "total": 91500,
+      "peso": 10
+    },
+    {
+      "indice": "2.1",
+      "descricao": "Títulos não cotados",
+      "moeda": "AKZ",
+      "qtd_mnt": 80,
+      "cotacao": 1000,
+      "valias": 300,
+      "valor": 80000,
+      "juro": 1500,
+      "total": 81500,
+      "peso": 8
+    },
+    {
+      "indice":"3",
+      "descricao": "UNIDADES DE PARTICIPAÇÃO DE OIC",
+      "moeda": "AKZ",
+      "qtd_mnt": 50,
+      "cotacao": 2000,
+      "valias": 500,
+      "valor": 100000,
+      "juro": 2000,
+      "total": 102000,
+      "peso": 12
+    },
+    {
+      "indice":"4",
+      "descricao": "OUTROS ACTIVOS DA CARTEIRA",
+      "moeda": "USD",
+      "qtd_mnt": 20,
+      "cotacao": 500,
+      "valias": 250,
+      "valor": 10000,
+      "juro": 100,
+      "total": 10100,
+      "peso": 3
+    },
+    {
+      "indice": "5",
+      "descricao": "LIQUIDEZ",
+      "moeda": "AKZ",
+      "qtd_mnt": 1000,
+      "cotacao": 1,
+      "valias": 0,
+      "valor": 1000,
+      "juro": 0,
+      "total": 1000,
+      "peso": 1
+    },
+    {
+      "indice":"6",
+      "descricao": "EMPRÉSTIMO",
+      "moeda": "AKZ",
+      "qtd_mnt": 2,
+      "cotacao": 25000,
+      "valias": 500,
+      "valor": 50000,
+      "juro": 2000,
+      "total": 52000,
+      "peso": 6
+    },
+    {
+      "indice": "7",
+      "descricao": "OUTROS VALORES A REGULAMENTAR",
+      "moeda": "AKZ",
+      "qtd_mnt": 5,
+      "cotacao": 10000,
+      "valias": 100,
+      "valor": 50000,
+      "juro": 500,
+      "total": 50500,
+      "peso": 5
+    },
+    {
+      "indice": "8",
+      "descricao": "OPERAÇÕES CAMBIAIS",
+      "moeda": "USD",
+      "qtd_mnt": 10,
+      "cotacao": 500,
+      "valias": 200,
+      "valor": 5000,
+      "juro": 100,
+      "total": 5100,
+      "peso": 2
+    },
+    {
+      "indice": "9",
+      "descricao": "OPERAÇÕES SOBRE TAXAS DE JURO",
+      "moeda": "AKZ",
+      "qtd_mnt": 15,
+      "cotacao": 3000,
+      "valias": 200,
+      "valor": 45000,
+      "juro": 1000,
+      "total": 46000,
+      "peso": 4
+    },
+    {
+      "indice": "10",
+      "descricao": "OPERAÇÕES SOBRE COTAÇÕES",
+      "moeda": "AKZ",
+      "qtd_mnt": 10,
+      "cotacao": 2500,
+      "valias": 300,
+      "valor": 25000,
+      "juro": 800,
+      "total": 25800,
+      "peso": 3
+    },
+    {
+      "indice": "11",
+      "descricao": "COMPROMISSOS COM E DE TERCEIROS",
+      "moeda": "AKZ",
+      "qtd_mnt": 5,
+      "cotacao": 8000,
+      "valias": 400,
+      "valor": 40000,
+      "juro": 600,
+      "total": 40600,
+      "peso": 4
+    },
+    {
+      "indice": "12",
+      "descricao": "DERIVADOS DE CRÉDITO",
+      "moeda": "AKZ",
+      "qtd_mnt": 3,
+      "cotacao": 10000,
+      "valias": 300,
+      "valor": 30000,
+      "juro": 500,
+      "total": 30500,
+      "peso": 5
+    }
+  ],
+  "oicImoveis": [
+    {
+      "numero_imovel": 1,
+      "endereco": "Rua 12 de Julho, nº 45",
+      "localidade": "Luanda",
+      "nome_perito_1": "Carlos Mendes",
+      "nome_perito_2": "Ana Sousa",
+      "nome_perito_3": "Pedro António",
+      "avaliacao_media": 15000000,
+      "percentual": 15,
+      "data": "2025-10-01"
+    },
+    {
+      "numero_imovel": 2,
+      "endereco": "Av. Deolinda Rodrigues, nº 200",
+      "localidade": "Luanda",
+      "nome_perito_1": "Rui Silva",
+      "nome_perito_2": "Helena Costa",
+      "nome_perito_3": "João Paulo",
+      "avaliacao_media": 20000000,
+      "percentual": 20,
+      "data": "2025-09-20"
+    }
+  ]
+}
+
