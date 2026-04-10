@@ -13,7 +13,7 @@ Existem dois métodos para consultar os mapas auxiliares submetidos.
 # (GET: /api/reportes/mapa-auxiliar/:ano/:trimestre)
 
 **Descrição:**  
-Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos OIC e imóveis) para um determinado período.
+Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos financeiros e imobiliários) para um determinado período.
 
 **Parâmetros de URL:**
 - `ano`: Ano do reporte.
@@ -37,7 +37,7 @@ Permite listar todos os mapas auxiliares submetidos pela entidade, com suporte a
 ## Regras de negócio relevantes
 
 - **Perímetro de Acesso:** O utilizador só consegue consultar os dados da própria entidade (baseado no token de autenticação).
-- **Dados Retornados:** A resposta inclui arrays agregados de `participantes`, `oicGeral` e `oicImoveis`.
+- **Dados Retornados:** A resposta inclui arrays agregados de `participantes`, `activosFinanceiros` e `activosImobiliarios`.
 
 ---
 
@@ -78,8 +78,8 @@ Permite listar todos os mapas auxiliares submetidos pela entidade, com suporte a
         "nivel_risco": "Baixo"
       }
     ],
-    "oicGeral": [...],
-    "oicImoveis": [...]
+    "activosFinanceiros": [...],
+    "activosImobiliarios": [...]
   }
 }
 ```

@@ -26,13 +26,13 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 ## Contexto de utilização
 
 - Destinado a entidades supervisionadas (ex: Sociedades Gestoras de OIC) para o reporte periódico de dados auxiliares à CMC.
-- Deve ser utilizado sempre que houver novos dados relativos a participantes, activos gerais ou imóveis para o trimestre em curso.
+- Deve ser utilizado sempre que houver novos dados relativos a participantes, activos financeiros ou imobiliários para o trimestre em curso.
 
 ## Regras de negócio relevantes
 
 - **Unicidade:** Só é permitida uma submissão por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
 - **Formato:** Exclusivamente formato `.JSON`.
-- **Campos Obrigatórios:** Todos os arrays (`participantes`, `oicGeral`, `oicImoveis`) devem conter pelo menos um registo.
+- **Campos Obrigatórios:** Todos os arrays (`participantes`, `activosFinanceiros`, `activosImobiliarios`) devem conter pelo menos um registo.
 - **Penalidade por Mora:** Se o reporte for submetido após o encerramento do trimestre (8 dias após o fim do período regulamentar), o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `SUBMETIDO COM PENALIDADE`.
 - **Autenticação:** Requer Bearer Token obtido no login.
 
@@ -53,13 +53,13 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 ## Campos de Entrada (Estrutura JSON)
 
 ### Objecto Principal
-| Nome          | Descrição                          | Tipo  | Preenchimento |
-| ------------- | ---------------------------------- | ----- | ------------- |
-| ano           | Ano do reporte (ex: 2025)          | Int   | Obrigatório   |
-| trimestre     | Trimestre (1 a 4)                  | Int   | Obrigatório   |
-| participantes | Lista de participantes do fundo    | Array | Obrigatório   |
-| oicGeral      | Lista de activos gerais            | Array | Obrigatório   |
-| oicImoveis    | Lista de activos imobiliários      | Array | Obrigatório   |
+| Nome                | Descrição                          | Tipo  | Preenchimento |
+| ------------------- | ---------------------------------- | ----- | ------------- |
+| ano                 | Ano do reporte (ex: 2025)          | Int   | Obrigatório   |
+| trimestre           | Trimestre (1 a 4)                  | Int   | Obrigatório   |
+| participantes       | Lista de participantes do fundo    | Array | Obrigatório   |
+| activosFinanceiros  | Lista de activos financeiros       | Array | Obrigatório   |
+| activosImobiliarios | Lista de activos imobiliários      | Array | Obrigatório   |
 
 ### Participante (Item de `participantes`)
 | Nome                       | Descrição                                 | Tipo    | Exemplo           |
@@ -81,7 +81,7 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 | valor_actual_up            | Valor actual da UP                        | Decimal | 1050.00           |
 | nivel_risco                | Nível de risco (BCFT/PADM)                | String  | Baixo             |
 
-### OIC Geral (Item de `oicGeral`)
+### Activos Financeiros (Item de `activosFinanceiros`)
 | Nome             | Descrição                                      | Tipo    | Exemplo              |
 | ---------------- | ---------------------------------------------- | ------- | -------------------- |
 | nif_fundo        | NIF do fundo regulamentado                     | String  | 5000000001           |
@@ -99,7 +99,7 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 | total            | Valor total (Valor + Juro)                     | Decimal | 121000.00            |
 | percentagem      | Peso percentual na carteira                    | Decimal | 10.5                 |
 
-### OIC Imóveis (Item de `oicImoveis`)
+### Activos Imobiliários (Item de `activosImobiliarios`)
 | Nome               | Descrição                                 | Tipo    | Exemplo              |
 | ------------------ | ----------------------------------------- | ------- | -------------------- |
 | nif_fundo          | NIF do fundo regulamentado                | String  | 5000000001           |
@@ -141,7 +141,7 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
       "nivel_risco": "Médio"
     }
   ],
-  "oicGeral": [
+  "activosFinanceiros": [
     {
       "nif_fundo": "5000000001",
       "nome_fundo": "Fundo Exemplo",
@@ -157,7 +157,7 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
       "percentagem": 10
     }
   ],
-  "oicImoveis": [
+  "activosImobiliarios": [
     {
       "nif_fundo": "5000000001",
       "nome_fundo": "Fundo Exemplo",

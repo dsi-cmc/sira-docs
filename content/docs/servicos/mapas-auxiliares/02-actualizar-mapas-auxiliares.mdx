@@ -18,9 +18,9 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
 
 - **Identificadores Únicos:** A actualização baseia-se em chaves únicas para cada tipo de registo:
   - **Participantes:** Baseado no `nif`.
-  - **OIC Geral:** Baseado na `conta`.
-  - **OIC Imóveis:** Baseado no `numero_imovel`.
-- **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `oicGeral`, `oicImoveis`).
+  - **Activos Financeiros:** Baseado na `conta`.
+  - **Activos Imobiliários:** Baseado no `numero_imovel`.
+- **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `activosFinanceiros`, `activosImobiliarios`).
 - **Data de Referência:** O `ano` e `trimestre` são obrigatórios para identificar o período a actualizar.
 - **Penalidade por Mora:** Se a actualização ocorrer após o prazo regulamentar, o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `ACTUALIZADO COM PENALIDADE`.
 
