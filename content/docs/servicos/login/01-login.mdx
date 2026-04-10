@@ -5,20 +5,26 @@ title: Login
 # (POST: /auth/login)
 
 **Descrição:**  
-Permite que o utilizador se autentique no sistema, enviando as suas credenciais (e-mail e password) para obter uma chave de acesso (token). Esta chave é obrigatória para aceder aos outros serviços da API.
+Permite que o utilizador se autentique no sistema, enviando as suas credenciais (e-mail e password) para obter uma chave de acesso (token). Esta chave é obrigatória para aceder aos outros serviços da API protegidos.
+
+---
 
 ## Contexto de utilização
 
 - Destinado a entidades supervisionadas e utilizadores autorizados para envio ou consulta de reportes.
-- Deve ser utilizado sempre que um novo token é necessário, como na primeira autenticação ou após expiração do token anterior.
+- Deve ser utilizado sempre que um novo token é necessário, como na primeira autenticação ou após a expiração do token anterior.
+
+---
 
 ## Regras de negócio relevantes
 
-- O token retornado expira após 15 minutos.
-- O token deve ser enviado em todas as requisições subsequentes no cabeçalho.
-- Credenciais inválidas resultam em erro 401 (Unauthorized).
-- São permitidas 3 tentativas de login consecutivas; na 4ª tentativa, a conta fica bloqueada.
-- Limite de sessões consecutivas: 3, na 4ª o utilizador aguarda 5 minutos.
+- **Expiração:** O token retornado possui um tempo de vida configurado no servidor (geralmente 1 hora).
+- **Cabeçalho de Autorização:** O token deve ser enviado em todas as requisições subsequentes no cabeçalho `Authorization: Bearer <token>`.
+- **Tentativas de Login:** São permitidas até **3 tentativas** consecutivas. À 4ª tentativa falhada, a conta é automaticamente bloqueada por segurança.
+- **Utilizador Bloqueado:** Caso a conta esteja bloqueada, o utilizador deverá contactar o administrador do sistema para o desbloqueio.
+- **Rate Limit:** Existe uma protecção contra ataques de força bruta que limita a frequência das tentativas de login.
+
+---
 
 ## Propriedades do Serviço
 
@@ -29,12 +35,16 @@ Permite que o utilizador se autentique no sistema, enviando as suas credenciais 
 | URL Produção    | https://reportes.cmc.ao/auth/login    | Endpoint de login                         |
 | URL Homologação | https://reporteshml.cmc.ao/auth/login | Endpoint de teste                         |
 
+---
+
 ## Campos de Entrada
 
-| Nome     | Descrição                   | Tipo   | Preenchimento |
-| -------- | --------------------------- | ------ | ------------- |
-| email    | Identificador do utilizador | String | Obrigatório   |
-| password | Password de acesso          | String | Obrigatório   |
+| Nome     | Descrição                   | Tipo   | Preenchimento | Exemplo                  |
+| -------- | --------------------------- | ------ | ------------- | ------------------------ |
+| email    | E-mail do utilizador        | String | Obrigatório   | utilizador@exemplo.com   |
+| password | Palavra-passe de acesso     | String | Obrigatório   | SenhaForte123!           |
+
+---
 
 ## Exemplo de Requisição
 
@@ -45,15 +55,30 @@ Permite que o utilizador se autentique no sistema, enviando as suas credenciais 
 }
 ```
 
-## Exemplo de Resposta
+---
+
+## Exemplo de Resposta (Sucesso)
 
 ```json
 {
-  "message": "Login efectuado com sucesso",
-  "token": "73Uyshuy#78…",
+  "sucesso": true,
+  "mensagem": "Login efectuado com sucesso",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "user": {
     "email": "utilizador@exemplo.com",
-    "name": "Entidade 123"
+    "name": "Nome da Entidade"
   }
+}
+```
+
+---
+
+## Exemplo de Resposta (Erro de Credenciais)
+
+```json
+{
+  "sucesso": false,
+  "mensagem": "Credenciais inválidas. Tentativas restantes: 2",
+  "erros": []
 }
 ```

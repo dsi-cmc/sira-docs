@@ -2,23 +2,42 @@
 title: Listar Mapas Auxiliares
 ---
 
+# Consultar Mapas Auxiliares
+
+Existem dois métodos para consultar os mapas auxiliares submetidos.
+
+---
+
+## 1. Consulta por Período Específico
+
 # (GET: /api/reportes/mapa-auxiliar/:ano/:trimestre)
 
 **Descrição:**  
 Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos OIC e imóveis) para um determinado período.
 
+**Parâmetros de URL:**
+- `ano`: Ano do reporte.
+- `trimestre`: Trimestre do reporte (1 a 4).
+
 ---
 
-## Contexto de utilização
+## 2. Consulta Geral com Filtros
 
-- Utilizado para verificação interna ou confirmação de submissão.
-- Pode servir de base para exportação de dados para outros sistemas da entidade.
+# (GET: /api/reportes/mapa-auxiliar)
+
+**Descrição:**  
+Permite listar todos os mapas auxiliares submetidos pela entidade, com suporte a filtros opcionais.
+
+**Parâmetros de Query (Opcionais):**
+- `periodo`: Filtra por uma data de referência específica (YYYY-MM-DD).
+- `inicio` e `fim`: Filtra por um intervalo de datas de referência.
+
+---
 
 ## Regras de negócio relevantes
 
 - **Perímetro de Acesso:** O utilizador só consegue consultar os dados da própria entidade (baseado no token de autenticação).
-- **Parâmetros:** `ano` (ex: 2025) e `trimestre` (1 a 4) devem ser passados na URL.
-- **Filtros Adicionais:** Pode ser expandido futuramente para incluir filtros por NIF de participante.
+- **Dados Retornados:** A resposta inclui arrays agregados de `participantes`, `oicGeral` e `oicImoveis`.
 
 ---
 
@@ -28,8 +47,8 @@ Este serviço permite a consulta detalhada de todos os dados auxiliares submetid
 | --------------- | --------------------------------------------------------| ----------------------------------- |
 | Método HTTP     | GET                                                     | Consulta de dados                   |
 | Autorização     | Bearer Token                                            | Obrigatório                         |
-| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar/\{ano\}/\{trimestre\} | Endpoint de consulta |
-| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar/\{ano\}/\{trimestre\} | Endpoint de teste |
+| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar      | Endpoint de consulta                |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar   | Endpoint de teste                   |
 
 ---
 
@@ -50,7 +69,13 @@ Este serviço permite a consulta detalhada de todos os dados auxiliares submetid
         "nif": "123456789",
         "nif_fundo": "5000000001",
         "nome_fundo": "Fundo Exemplo",
-        ...mais campos.
+        "dt_subscricao": "2025-01-15",
+        "valor_nominal_up": 1000,
+        "quantidade_up_subscritas": 10,
+        "valor_subscrito": 10000,
+        "valor_liquidado": 10000,
+        "valor_actual_up": 1050,
+        "nivel_risco": "Baixo"
       }
     ],
     "oicGeral": [...],

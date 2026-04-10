@@ -2,7 +2,7 @@
 title: Submeter Balancete
 ---
 
-# (POST: /reportes/balancetes)
+# (POST: /api/reportes/balancete)
 
 **Descrição:**  
 Permite que a entidade supervisionada envie o seu balancete financeiro para o sistema de reporte da CMC.
@@ -27,15 +27,10 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 
 ## Regras de negócio relevantes
 
-- O balancete deve conter todos os movimentos contabilísticos do período reportado.
-- Submissões trimestrais devem ser feitas até o dia 8 após o fim do trimestre.
-- Campos numéricos sem movimento devem ser preenchidos com 0.
-- Submissões incompletas ou inválidas retornam erro 400.
-- Envio sem token válido retorna erro 401.
-- Tentativa de submissão de período já submetido retorna erro 409 (Conflict).
-- Sucesso retorna 200 OK ou 201 Created.
-- Limite de submissões: 3 tentativas consecutivas; na 4ª, aguardar 5 minutos.
-- No balancete devem constar todos os grupos contabilísticos:  
+- **Validação:** O sistema realiza uma validação de estrutura e saldos antes de aceitar o reporte.
+- **Prazos:** Submissões trimestrais devem ser feitas até o dia 8 após o fim do trimestre. Caso contrário, serão registadas como "fora do prazo".
+- **Unicidade:** Só é permitido um balancete por trimestre para cada fundo (ou para a própria entidade).
+- **Grupos Obrigatórios:** Devem constar todos os grupos contabilísticos:  
   `activos, passivos, compensacaoActiva, compensacaoPassiva, fundosProprios, resultados, fluxosDeCaixa.`
 
 ---
@@ -58,52 +53,55 @@ Para efectuar a submissão, o utilizador deve autenticar-se através do endpoint
 
 | Nome       | Descrição                                            | Tipo    | Preenchimento | Exemplo   |
 | ---------- | ---------------------------------------------------- | ------- | ------------- | --------- |
-| nome_fundo | Nome do Fundo ao qual o balancete se refere          | String  | Opcional      | Fundo XYZ |
-| nif_fundo  | NIF do Fundo ao qual o balancete se refere           | Inteiro | Opcional      | 54000000  |
-| total_up   | Quantidade de Unidades de Participação (UP) do fundo | Inteiro | Obrigatório   | 660170    |
-| ano        | Ano do período de reporte                            | Inteiro | Obrigatório   | 2025      |
+| ano        | Ano do período de reporte (>= 2000)                  | Inteiro | Obrigatório   | 2025      |
 | trimestre  | Trimestre do período de reporte (1 a 4)              | Inteiro | Obrigatório   | 3         |
+| total_up   | Quantidade total de Unidades de Participação         | Decimal | Obrigatório   | 660170.00 |
+| nome_fundo | Nome do Fundo (se aplicável)                         | String  | Opcional      | Fundo XYZ |
+| nif_fundo  | NIF do Fundo (se aplicável)                          | String  | Opcional      | 540000000 |
 
----
-
-### Parâmetros da Estrutura do Balancete
+### Estrutura do Item (para cada grupo contabilístico)
 
 | Nome                | Descrição                       | Tipo    | Preenchimento | Exemplo          |
 | ------------------- | ------------------------------- | ------- | ------------- | ---------------- |
-| conta               | Número da Conta Principal       | String  | Obrigatório   | 1.1              |
+| num_conta           | Número da Conta Principal       | String  | Obrigatório   | 1.1              |
 | conta_principal     | Descrição da Conta Principal    | String  | Obrigatório   | DISPONIBILIDADES |
 | num_subconta        | Número da Subconta              | String  | Obrigatório   | 1.10.10          |
 | subconta            | Descrição da Subconta           | String  | Obrigatório   | NUMERÁRIO        |
 | num_conta_movimento | Número da Subconta de Movimento | String  | Obrigatório   | 1.10.10          |
 | nome_conta          | Nome da Subconta de Movimento   | String  | Obrigatório   | Numerário        |
-| debito              | Valor de débito                 | Decimal | Obrigatório   | 5988509825.11    |
-| credito             | Valor de crédito                | Decimal | Obrigatório   | 2988509825.11    |
-| saldo               | Saldo resultante                | Decimal | Obrigatório   | 3000000000.00    |
+| debito              | Valor de débito                 | Decimal | Obrigatório   | 50000.00         |
+| credito             | Valor de crédito                | Decimal | Obrigatório   | 10000.00         |
+| saldo               | Saldo resultante                | Decimal | Obrigatório   | 40000.00         |
 
 ---
 
-## Exemplo de Requisição
+## Exemplo de Requisição (Simplificado)
 
 ```json
 {
-  "nome_fundo": "Fundo XYZ",
-  "nif_fundo": 54000000,
-  "total_up": 660170,
   "ano": 2025,
   "trimestre": 2,
+  "total_up": 660170,
+  "nome_fundo": "Fundo XYZ",
+  "nif_fundo": "540000000",
   "activos": [
     {
       "num_conta": "1.1",
       "conta_principal": "DISPONIBILIDADES",
       "num_subconta": "1.10.10",
       "subconta": "NUMERÁRIO",
-      "num_conta_movimento": "1.10.10",
-      "nome_conta": "Numerário",
+      "num_conta_movimento": "1.10.10.01",
+      "nome_conta": "Caixa Geral",
       "debito": 60000,
       "credito": 10000,
       "saldo": 50000
     }
-  ]
-  // ... restantes movimentos
+  ],
+  "passivos": [],
+  "compensacaoActiva": [],
+  "compensacaoPassiva": [],
+  "fundosProprios": [],
+  "resultados": [],
+  "fluxosDeCaixa": []
 }
 ```

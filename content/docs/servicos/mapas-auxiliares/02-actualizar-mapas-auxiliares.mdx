@@ -17,8 +17,8 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
 ## Regras de negócio relevantes
 
 - **Identificadores Únicos:** A actualização baseia-se em chaves únicas para cada tipo de registo:
-  - **Participantes:** Baseado no `NIF`.
-  - **OIC Geral:** Baseado no `indice`.
+  - **Participantes:** Baseado no `nif`.
+  - **OIC Geral:** Baseado na `conta`.
   - **OIC Imóveis:** Baseado no `numero_imovel`.
 - **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `oicGeral`, `oicImoveis`).
 - **Data de Referência:** O `ano` e `trimestre` são obrigatórios para identificar o período a actualizar.
@@ -57,7 +57,7 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
       "valor_subscrito": 5500,
       "valor_liquidado": 5500,
       "valor_actual_up": 1100,
-      "nivel_risco_BCFTPADM": "Médio"
+      "nivel_risco": "Médio"
     }
   ]
 }
