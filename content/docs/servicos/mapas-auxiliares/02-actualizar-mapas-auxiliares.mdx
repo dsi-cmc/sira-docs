@@ -20,13 +20,13 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
 
 ## Regras de negócio relevantes
 
-- **Identificadores Únicos:** A actualização baseia-se em chaves únicas para localizar o registo existente no sistema:
-  - **Participantes:** Localizado pelo `nif` do participante.
-  - **Activos Financeiros:** Localizado pela `conta` ou identificador do activo.
-  - **Activos Imobiliários:** Localizado pelo `numero_imovel`.
+- **Identificadores Únicos:** A actualização baseia-se em chaves únicas para cada tipo de registo:
+  - **Participantes:** Baseado no `nif`.
+  - **Activos Financeiros:** Baseado na `conta`.
+  - **Activos Imobiliários:** Baseado no `numero_imovel`.
 - **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `activosFinanceiros`, `activosImobiliarios`). O sistema só processará os arrays que forem incluídos no JSON.
-- **Data de Referência:** O `ano` e `trimestre` são **obrigatórios** no topo do objecto para identificar o período a actualizar.
-- **Penalidade por Mora:** Se a actualização ocorrer após o prazo regulamentar (conforme regra de `LOCK_DAY`), o status de resposta será `ACTUALIZADO COM PENALIDADE`.
+- **Data de Referência:** O `ano` e `trimestre` são obrigatórios para identificar o período a actualizar.
+- **Penalidade por Mora:** Se a actualização ocorrer após o prazo regulamentar, o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `ACTUALIZADO COM PENALIDADE`.
 
 ---
 
@@ -50,18 +50,18 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
   "trimestre": 3,
   "participantes": [
     {
-      "nif_fundo": "000000000",
-      "nome_fundo": "ZPX",
-      "categoria_up": "Categoria A",
-      "nome": "João Manuel Silva - Atualizado",
-      "nif": "5001234567",
-      "dt_subscricao": "2025-09-15",
-      "valor_nominal_up": 1050.00,
-      "quantidade_up_subscritas": 50,
-      "valor_subscrito": 52500.00,
-      "valor_liquidado": 52500.00,
-      "valor_actual_up": 53000.00,
-      "nivel_risco": "Baixo"
+      "categoria_up": "Retalho",
+      "nome": "Investidor Exemplo Actualizado",
+      "nif": "123456789",
+      "nif_fundo": "5000000001",
+      "nome_fundo": "Fundo Exemplo",
+      "dt_subscricao": "2025-02-10",
+      "valor_nominal_up": 1100,
+      "quantidade_up_subscritas": 5,
+      "valor_subscrito": 5500,
+      "valor_liquidado": 5500,
+      "valor_actual_up": 1100,
+      "nivel_risco": "Médio"
     }
   ]
 }

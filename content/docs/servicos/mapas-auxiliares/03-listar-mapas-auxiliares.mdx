@@ -2,23 +2,42 @@
 title: Listar Mapas Auxiliares
 ---
 
-# (GET: /api/reportes/mapa-auxiliar/:ano/:trimestre)
+# Consultar Mapas Auxiliares
 
-**Descrição:**  
-Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos financeiros e activos imobiliários) para um determinado período.
+Existem dois métodos para consultar os mapas auxiliares submetidos.
 
 ---
 
-## Contexto de utilização
+## 1. Consulta por Período Específico
 
-- Utilizado para verificação interna ou confirmação de submissão.
-- Pode servir de base para exportação de dados para outros sistemas da entidade.
+# (GET: /api/reportes/mapa-auxiliar/:ano/:trimestre)
+
+**Descrição:**  
+Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos financeiros e imobiliários) para um determinado período.
+
+**Parâmetros de URL:**
+- `ano`: Ano do reporte.
+- `trimestre`: Trimestre do reporte (1 a 4).
+
+---
+
+## 2. Consulta Geral com Filtros
+
+# (GET: /api/reportes/mapa-auxiliar)
+
+**Descrição:**  
+Permite listar todos os mapas auxiliares submetidos pela entidade, com suporte a filtros opcionais.
+
+**Parâmetros de Query (Opcionais):**
+- `periodo`: Filtra por uma data de referência específica (YYYY-MM-DD).
+- `inicio` e `fim`: Filtra por um intervalo de datas de referência.
+
+---
 
 ## Regras de negócio relevantes
 
 - **Perímetro de Acesso:** O utilizador só consegue consultar os dados da própria entidade (baseado no token de autenticação).
-- **Parâmetros:** `ano` (ex: 2025) e `trimestre` (1 a 4) devem ser passados na URL.
-- **Filtros Adicionais:** Pode ser expandido futuramente para incluir filtros por NIF de participante.
+- **Dados Retornados:** A resposta inclui arrays agregados de `participantes`, `activosFinanceiros` e `activosImobiliarios`.
 
 ---
 
@@ -28,8 +47,13 @@ Este serviço permite a consulta detalhada de todos os dados auxiliares submetid
 | --------------- | --------------------------------------------------------| ----------------------------------- |
 | Método HTTP     | GET                                                     | Consulta de dados                   |
 | Autorização     | Bearer Token                                            | Obrigatório                         |
+<<<<<<< HEAD
 | URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar/{ano}/{trimestre} | Endpoint de consulta |
 | URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar/{ano}/{trimestre} | Endpoint de teste |
+=======
+| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar      | Endpoint de consulta                |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar   | Endpoint de teste                   |
+>>>>>>> 9896c64a844ff8e1321aebf6cf7c31d51baa9b05
 
 ---
 
@@ -45,6 +69,7 @@ Este serviço permite a consulta detalhada de todos os dados auxiliares submetid
     "participantes": [
       {
         "id": 1,
+<<<<<<< HEAD
         "nif_fundo": "000000000",
         "nome_fundo": "ZPX",
         "categoria_up": "Categoria A",
@@ -100,6 +125,24 @@ Este serviço permite a consulta detalhada de todos os dados auxiliares submetid
         "status": "SUBMETIDO"
       }
     ]
+=======
+        "categoria_up": "Retalho",
+        "nome": "João Silva",
+        "nif": "123456789",
+        "nif_fundo": "5000000001",
+        "nome_fundo": "Fundo Exemplo",
+        "dt_subscricao": "2025-01-15",
+        "valor_nominal_up": 1000,
+        "quantidade_up_subscritas": 10,
+        "valor_subscrito": 10000,
+        "valor_liquidado": 10000,
+        "valor_actual_up": 1050,
+        "nivel_risco": "Baixo"
+      }
+    ],
+    "activosFinanceiros": [...],
+    "activosImobiliarios": [...]
+>>>>>>> 9896c64a844ff8e1321aebf6cf7c31d51baa9b05
   }
 }
 ```

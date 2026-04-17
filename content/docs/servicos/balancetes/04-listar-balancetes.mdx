@@ -2,10 +2,10 @@
 title: Listar Balancetes por Trimestre
 ---
 
-# (GET /reportes/balancete/ANO/PERIODO)
+# (GET /api/reportes/balancete/:ano/:trimestre/:nif_fundo?)
 
 **Descrição:**  
-Permite que a entidade supervisionada obtenha a lista de balancetes submetidos, filtrando por ano e trimestre.
+Permite que a entidade supervisionada obtenha a lista de balancetes submetidos, filtrando por ano e trimestre. O parâmetro `nif_fundo` é opcional e permite filtrar por um fundo específico.
 
 O token do login deve ser enviado no cabeçalho `Authorization: Bearer <token>`.
 
@@ -16,35 +16,26 @@ O token do login deve ser enviado no cabeçalho `Authorization: Bearer <token>`.
 - Consultar balancetes submetidos por período.
 - Visualizar status e gerar relatórios internos.
 
-## Regras de negócio relevantes
-
-- Apenas entidades autenticadas podem consultar; caso contrário, retorna 401.
-- O utilizador só visualiza os seus próprios balancetes.
-- Cada balancete inclui status SUBMETIDO ou ACTUALIZADO.
-- Sucesso retorna 200 OK.
-
 ---
 
 ## Propriedades do Serviço
 
-| Nome            | Valor                                                         | Descrição              |
-| --------------- | ------------------------------------------------------------- | ---------------------- |
-| Método HTTP     | GET                                                           | Solicitação de dados   |
-| Cabeçalho       | Content-Type: application/json                                | Corpo em JSON          |
-| Autorização     | Bearer Token                                                  | Tipo de autenticação   |
-| URL Produção    | https://reportes.cmc.ao/api/reportes/balancete/ANO/PERIODO    | Listagem por trimestre |
-| URL Homologação | https://reporteshml.cmc.ao/api/reportes/balancete/ANO/PERIODO | Endpoint de teste      |
+| Nome            | Valor                                                                     | Descrição              |
+| --------------- | ------------------------------------------------------------------------- | ---------------------- |
+| Método HTTP     | GET                                                                       | Solicitação de dados   |
+| Autorização     | Bearer Token                                                              | Tipo de autenticação   |
+| URL Produção    | https://reportes.cmc.ao/api/reportes/balancete/{ano}/{trimestre}      | Listagem por trimestre |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/balancete/{ano}/{trimestre}   | Endpoint de teste      |
 
 ---
 
-## Campos de Entrada
+## Parâmetros de URL
 
-| Nome    | Descrição            | Tipo    | Preenchimento | Exemplo |
-| ------- | -------------------- | ------- | ------------- | ------- |
-| Ano     | Ano do reporte       | Inteiro | Obrigatório   | 2025    |
-| Período | Trimestre do reporte | Inteiro | Obrigatório   | 2       |
-
-> **Nota:** Nenhum dado deve ser enviado no corpo da requisição; os parâmetros vão na URL.
+| Nome      | Descrição                           | Tipo   | Preenchimento | Exemplo   |
+| --------- | ----------------------------------- | ------ | ------------- | --------- |
+| ano       | Ano do reporte                      | Number | Obrigatório   | 2025      |
+| trimestre | Trimestre do reporte (1 a 4)        | Number | Obrigatório   | 2         |
+| nif_fundo | NIF do Fundo (se aplicável)         | String | Opcional      | 540000000 |
 
 ---
 
@@ -53,26 +44,24 @@ O token do login deve ser enviado no cabeçalho `Authorization: Bearer <token>`.
 ```json
 {
   "sucesso": true,
-  "mensagem": "Balancete por trimestre obtido com sucesso.",
-  "dados": [
-    {
-      "ano": 2025,
-      "trimestre": 1,
-      "entidade_id": 1,
-      "activos": [
-        {
-          "num_conta": "1.1",
-          "conta_principal": "DISPONIBILIDADES",
-          "subconta": "NUMERÁRIO",
-          "num_conta_movimento": "1.10.10",
-          "nome_conta": "Numerário",
-          "debito": 60000,
-          "credito": 10000,
-          "saldo": 50000
-        }
-      ]
-      ...restantes movimentos.
-    }
-  ]
+  "mensagem": "Balancetes obtidos com sucesso.",
+  "dados": {
+    "ACTIVO": [
+      {
+        "num_conta": "1.1",
+        "conta_principal": "DISPONIBILIDADES",
+        "num_subconta": "1.10.10",
+        "subconta": "NUMERÁRIO",
+        "num_conta_movimento": "1.10.10.01",
+        "nome_conta": "Caixa Geral",
+        "debito": 60000,
+        "credito": 10000,
+        "saldo": 50000,
+        "status": "SUBMETIDO"
+      }
+    ],
+    "PASSIVOS": [...],
+    "FUNDOS PRÓPRIOS": [...]
+  }
 }
 ```

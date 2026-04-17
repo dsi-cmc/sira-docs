@@ -2,7 +2,7 @@
 title: Actualizar Balancete
 ---
 
-# (POST: /reportes/balancete/updateBalancete)
+# (POST: /api/reportes/balancete/updateBalancete)
 
 **Descrição:**  
 Permite que a entidade supervisionada actualize dados de um balancete previamente submetido.
@@ -18,10 +18,9 @@ O token obtido no login deve ser enviado no cabeçalho `Authorization: Bearer <t
 
 ## Regras de negócio relevantes
 
-- Campos sem movimento devem ser preenchidos com 0.
-- Submissões incompletas ou inválidas retornam erro 400.
-- Actualização sem token válido retorna erro 401.
-- Sucesso retorna 200 OK ou 201 Created.
+- **Identificador de Movimento:** A actualização baseia-se no `num_conta_movimento`.
+- **Flexibilidade:** Pode enviar apenas as categorias que necessitam de correcção.
+- **Prazos:** Se a actualização for feita após o prazo regulamentar, será marcada como "fora do prazo".
 
 ---
 
@@ -37,19 +36,19 @@ O token obtido no login deve ser enviado no cabeçalho `Authorization: Bearer <t
 
 ---
 
-## Campos de Entrada
+## Campos de Entrada (Estrutura do Item)
 
 | Nome                | Descrição                       | Tipo    | Preenchimento | Exemplo          |
 | ------------------- | ------------------------------- | ------- | ------------- | ---------------- |
-| conta               | Número da Conta Principal       | String  | Obrigatório   | 1.1              |
+| num_conta           | Número da Conta Principal       | String  | Obrigatório   | 1.1              |
 | conta_principal     | Descrição da Conta Principal    | String  | Obrigatório   | DISPONIBILIDADES |
 | num_subconta        | Número da Subconta              | String  | Obrigatório   | 1.10.10          |
 | subconta            | Descrição da Subconta           | String  | Obrigatório   | NUMERÁRIO        |
-| num_conta_movimento | Número da Subconta de Movimento | String  | Obrigatório   | 1.10.10          |
-| nome_conta          | Nome da Subconta de Movimento   | String  | Obrigatório   | Numerário        |
-| debito              | Valor de débito                 | Decimal | Obrigatório   | 5988509825.11    |
-| credito             | Valor de crédito                | Decimal | Obrigatório   | 2988509825.11    |
-| saldo               | Saldo resultante                | Decimal | Obrigatório   | 3000000000.00    |
+| num_conta_movimento | Número da Subconta de Movimento | String  | Obrigatório   | 1.10.10.01       |
+| nome_conta          | Nome da Subconta de Movimento   | String  | Obrigatório   | Caixa Geral      |
+| debito              | Valor de débito                 | Decimal | Obrigatório   | 60000.00         |
+| credito             | Valor de crédito                | Decimal | Obrigatório   | 10000.00         |
+| saldo               | Saldo resultante                | Decimal | Obrigatório   | 50000.00         |
 
 ---
 
@@ -59,19 +58,19 @@ O token obtido no login deve ser enviado no cabeçalho `Authorization: Bearer <t
 {
   "ano": 2025,
   "trimestre": 2,
+  "nif_fundo": "540000000",
   "activos": [
     {
       "num_conta": "1.1",
       "conta_principal": "DISPONIBILIDADES",
       "num_subconta": "1.10.10",
       "subconta": "NUMERÁRIO",
-      "num_conta_movimento": "1.10.10",
-      "nome_conta": "Numerário",
-      "debito": 60000,
+      "num_conta_movimento": "1.10.10.01",
+      "nome_conta": "Caixa Geral",
+      "debito": 65000,
       "credito": 10000,
-      "saldo": 50000
+      "saldo": 55000
     }
   ]
-  ...restantes movimentos.
 }
 ```
