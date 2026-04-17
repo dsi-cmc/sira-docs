@@ -5,7 +5,7 @@ title: Listar Mapas Auxiliares
 # (GET: /api/reportes/mapa-auxiliar/:ano/:trimestre)
 
 **Descrição:**  
-Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos OIC e imóveis) para um determinado período.
+Este serviço permite a consulta detalhada de todos os dados auxiliares submetidos (participantes, activos financeiros e activos imobiliários) para um determinado período.
 
 ---
 
@@ -28,8 +28,8 @@ Este serviço permite a consulta detalhada de todos os dados auxiliares submetid
 | --------------- | --------------------------------------------------------| ----------------------------------- |
 | Método HTTP     | GET                                                     | Consulta de dados                   |
 | Autorização     | Bearer Token                                            | Obrigatório                         |
-| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar/\{ano\}/\{trimestre\} | Endpoint de consulta |
-| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar/\{ano\}/\{trimestre\} | Endpoint de teste |
+| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar/{ano}/{trimestre} | Endpoint de consulta |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar/{ano}/{trimestre} | Endpoint de teste |
 
 ---
 
@@ -41,20 +41,65 @@ Este serviço permite a consulta detalhada de todos os dados auxiliares submetid
   "mensagem": "Mapa auxiliar obtidos com sucesso.",
   "dados": {
     "ano": 2025,
-    "trimestre": 1,
+    "trimestre": 3,
     "participantes": [
       {
         "id": 1,
-        "categoria_up": "Retalho",
-        "nome": "João Silva",
-        "nif": "123456789",
-        "nif_fundo": "5000000001",
-        "nome_fundo": "Fundo Exemplo",
-        ...mais campos.
+        "nif_fundo": "000000000",
+        "nome_fundo": "ZPX",
+        "categoria_up": "Categoria A",
+        "nome": "João Manuel Silva",
+        "nif": "5001234567",
+        "dt_subscricao": "2025-09-15",
+        "valor_nominal_up": 1000.00,
+        "quantidade_up_subscritas": 50,
+        "valor_subscrito": 50000.00,
+        "valor_liquidado": 50000.00,
+        "valor_actual_up": 52000.00,
+        "nivel_risco": "Médio",
+        "status": "SUBMETIDO"
       }
     ],
-    "oicGeral": [...],
-    "oicImoveis": [...]
+    "activosFinanceiros": [
+      {
+        "id": 1,
+        "nif_fundo": "000000000",
+        "nome_fundo": "ZPX",
+        "conta": "3210.10.001",
+        "descricao": "INSTRUMENTOS FINANCEIROS NEGOCIADOS EM MERCADO REGULAMENTADO",
+        "moeda": "AKZ",
+        "dt_cambio": "2026-03-31",
+        "cambio": 1.00,
+        "quantidade": 200,
+        "valor_de_mercado": 240000.00,
+        "valias": 1000.00,
+        "valor": 240000.00,
+        "juro": 5000.00,
+        "total": 245000.00,
+        "percentagem": 25.00,
+        "status": "SUBMETIDO"
+      }
+    ],
+    "activosImobiliarios": [
+      {
+        "id": 1,
+        "nif_fundo": "000000000",
+        "nome_fundo": "ZPX",
+        "dt_aquisicao": "2024-01-20",
+        "numero_imovel": "1",
+        "endereco": "Rua 12 de Julho, nº 45",
+        "localidade": "Luanda",
+        "nome_perito_1": "Carlos Mendes",
+        "nome_perito_2": "Ana Sousa",
+        "nome_perito_3": "Pedro António",
+        "dt_avaliacao": "2025-10-01T09:00:00Z",
+        "avaliacao_perito_1": 15000000.00,
+        "avaliacao_perito_2": 15100000.00,
+        "avaliacao_perito_3": 14900000.00,
+        "avaliacao_media": 15000000.00,
+        "status": "SUBMETIDO"
+      }
+    ]
   }
 }
 ```

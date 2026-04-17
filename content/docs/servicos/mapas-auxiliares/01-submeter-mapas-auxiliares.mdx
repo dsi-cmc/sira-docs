@@ -5,9 +5,9 @@ title: Submeter Mapas Auxiliares
 # (POST: /api/reportes/mapa-auxiliar)
 
 **Descrição:**  
-Este serviço permite a submissão dos mapas auxiliares obrigatórios, nomeadamente o Mapa de Participantes, Mapa OIC Geral e Mapa de Imóveis, conforme as normas de reporte vigentes.
+Este serviço permite a submissão dos mapas auxiliares obrigatórios, nomeadamente o Mapa de Participantes, Mapa de Activos Financeiros e Mapa de Activos Imobiliários, conforme as normas de reporte vigentes.
 
-A submissão deve ser feita de forma agregada, contendo todos os registos para o período (ano e trimestre) especificado.
+A submissão inicial deve ser feita de forma agregada, contendo obrigatoriamente todos os registos para o período (ano e trimestre) especificado.
 
 > **Observação:** Todo o reporte deve ser enviado em formato `.JSON`. O modelo Excel disponibilizado serve apenas como referência para estruturação de dados.
 
@@ -21,14 +21,14 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 ## Contexto de utilização
 
 - Destinado a entidades supervisionadas (ex: Sociedades Gestoras de OIC) para o reporte periódico de dados auxiliares à CMC.
-- Deve ser utilizado sempre que houver novos dados relativos a participantes, activos gerais ou imóveis para o trimestre em curso.
+- Deve ser utilizado sempre que houver novos dados relativos a participantes, activos financeiros ou activos imobiliários para o trimestre em curso.
 
 ## Regras de negócio relevantes
 
-- **Unicidade:** Só é permitida uma submissão por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
+- **Unicidade:** Só é permitida uma submissão inicial por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
 - **Formato:** Exclusivamente formato `.JSON`.
-- **Campos Obrigatórios:** Todos os arrays (`participantes`, `oicGeral`, `oicImoveis`) devem conter pelo menos um registo.
-- **Penalidade por Mora:** Se o reporte for submetido após o encerramento do trimestre (8 dias após o fim do período regulamentar), o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `SUBMETIDO COM PENALIDADE`.
+- **Campos Obrigatórios:** Na submissão inicial, todos os arrays (`participantes`, `activosFinanceiros`, `activosImobiliarios`) devem ser enviados e conter pelo menos um registo.
+- **Penalidade por Mora:** Se o reporte for submetido após o encerramento do trimestre (conforme regra de `LOCK_DAY`), o sistema registará o envio com penalidade, e o status de resposta será `SUBMETIDO COM PENALIDADE`.
 - **Autenticação:** Requer Bearer Token obtido no login.
 
 ---
@@ -48,56 +48,65 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 ## Campos de Entrada (Estrutura JSON)
 
 ### Objecto Principal
-| Nome          | Descrição                          | Tipo  | Preenchimento |
-| ------------- | ---------------------------------- | ----- | ------------- |
-| ano           | Ano do reporte (ex: 2025)          | Int   | Obrigatório   |
-| trimestre     | Trimestre (1 a 4)                  | Int   | Obrigatório   |
-| participantes | Lista de participantes do fundo    | Array | Obrigatório   |
-| oicGeral      | Lista de activos gerais            | Array | Obrigatório   |
-| oicImoveis    | Lista de activos imobiliários      | Array | Obrigatório   |
+| Nome                | Descrição                          | Tipo  | Preenchimento |
+| ------------------- | ---------------------------------- | ----- | ------------- |
+| ano                 | Ano do reporte (ex: 2025)          | Int   | Obrigatório   |
+| trimestre           | Trimestre (1 a 4)                  | Int   | Obrigatório   |
+| participantes       | Lista de participantes do fundo    | Array | Obrigatório   |
+| activosFinanceiros  | Lista de activos financeiros       | Array | Obrigatório   |
+| activosImobiliarios | Lista de activos imobiliários      | Array | Obrigatório   |
 
 ### Participante (Item de `participantes`)
-| Nome             | Descrição                                 | Tipo    | Exemplo           |
-| ---------------- | ----------------------------------------- | ------- | ----------------- |
-| categoria_up     | Categoria da Unidade de Participação      | String  | Classe A          |
-| nome             | Nome completo do participante             | String  | João Silva        |
-| nif              | NIF do participante                       | String  | 000000000LA000    |
-| nif_fundo        | NIF do fundo regulamentado                | String  | 5000000001        |
-| nome_fundo       | Nome do fundo regulamentado               | String  | Fundo de Exemplo  |
-| dt_subscricao    | Data da subscrição                        | Date    | 2025-01-15        |
-| valor_nominal_up | Valor nominal da UP                       | Decimal | 1000.00           |
-| quantidade_up    | Quantidade de UPs subscritas              | Decimal | 10                |
-| valor_subscrito  | Valor total subscrito                     | Decimal | 10000.00          |
-| valor_liquidado  | Valor já liquidado                        | Decimal | 10000.00          |
-| valor_actual_up  | Valor actual da UP                        | Decimal | 1050.00           |
-| nivel_risco      | Nível de risco (BCFT/PADM)                | String  | Baixo             |
+| Nome                     | Descrição                                 | Tipo    | Exemplo           |
+| ------------------------ | ----------------------------------------- | ------- | ----------------- |
+| nif_fundo                | NIF do fundo regulamentado                | String  | 000000000         |
+| nome_fundo               | Nome do fundo regulamentado               | String  | ZPX               |
+| categoria_up             | Categoria da UP                           | String  | Categoria A       |
+| nome                     | Nome completo do participante             | String  | João Silva        |
+| nif                      | NIF do participante                       | String  | 5001234567        |
+| dt_subscricao            | Data da subscrição                        | Date    | 2025-09-15        |
+| valor_nominal_up         | Valor nominal da UP                       | Decimal | 1000.00           |
+| quantidade_up_subscritas | Quantidade de UPs subscritas              | Int     | 50                |
+| valor_subscrito          | Valor total subscrito                     | Decimal | 50000.00          |
+| valor_liquidado          | Valor já liquidado                        | Decimal | 50000.00          |
+| valor_actual_up          | Valor actual da UP                        | Decimal | 52000.00          |
+| nivel_risco              | Nível de risco                            | String  | Médio             |
 
-### OIC Geral (Item de `oicGeral`)
-| Nome      | Descrição                                      | Tipo    | Exemplo              |
-| --------- | ---------------------------------------------- | ------- | -------------------- |
-| indice    | Índice ou código do activo                     | String  | 1.1                  |
-| descricao | Descrição do activo                            | String  | Obrigações do Estado |
-| moeda     | Moeda de referência                            | String  | AKZ                  |
-| qtd_mnt   | Quantidade ou montante                         | Decimal | 100                  |
-| cotacao   | Cotação actual                                 | Decimal | 1200.00              |
-| valias    | Mais-valias ou menos-valias                    | Decimal | 500.00               |
-| valor     | Valor base                                     | Decimal | 120000.00            |
-| juro      | Juros acumulados                               | Decimal | 1000.00              |
-| total     | Valor total (Valor + Juro)                     | Decimal | 121000.00            |
-| peso      | Peso percentual na carteira                    | Decimal | 10.5                 |
+### Activos Financeiros (Item de `activosFinanceiros`)
+| Nome             | Descrição                                      | Tipo    | Exemplo              |
+| ---------------- | ---------------------------------------------- | ------- | -------------------- |
+| nif_fundo        | NIF do fundo regulamentado                     | String  | 000000000            |
+| nome_fundo       | Nome do fundo regulamentado                    | String  | ZPX                  |
+| conta            | Código da conta do activo                      | String  | 3210.10.001          |
+| descricao        | Descrição do activo                            | String  | Obrigações do Estado |
+| moeda            | Moeda de referência                            | String  | AKZ                  |
+| dt_cambio        | Data do câmbio (se aplicável)                  | Date    | 2026-03-31           |
+| cambio           | Taxa de câmbio utilizada                       | Decimal | 1.0                  |
+| quantidade       | Quantidade ou montante                         | Decimal | 200                  |
+| valor_de_mercado | Valor de mercado actual                        | Decimal | 240000.00            |
+| valias           | Mais ou menos-valias                           | Decimal | 1000.00              |
+| valor            | Valor base                                     | Decimal | 240000.00            |
+| juro             | Juros acumulados                               | Decimal | 5000.00              |
+| total            | Valor total (Valor + Juro)                     | Decimal | 245000.00            |
+| percentagem      | Peso percentual na carteira                    | Decimal | 25.0                 |
 
-### OIC Imóveis (Item de `oicImoveis`)
-| Nome            | Descrição                                 | Tipo    | Exemplo              |
-| --------------- | ----------------------------------------- | ------- | -------------------- |
-| numero_imovel   | Número identificador do imóvel            | Inteiro | 1                    |
-| endereco        | Endereço completo                         | String  | Rua 12 de Julho, 45  |
-| localidade      | Cidade ou localidade                      | String  | Luanda               |
-| nome_perito_1   | Nome do primeiro perito avaliador         | String  | Carlos Mendes        |
-| nome_perito_2   | Nome do segundo perito avaliador          | String  | Ana Sousa            |
-| nome_perito_3   | Nome do terceiro perito avaliador         | String  | Pedro António        |
-| avaliacao_media | Média das avaliações                      | Decimal | 15000000.00          |
-| percentual      | Percentual de participação                | Decimal | 15.0                 |
-| data            | Data da última avaliação                  | Date    | 2025-10-01           |
+### Activos Imobiliários (Item de `activosImobiliarios`)
+| Nome               | Descrição                                 | Tipo    | Exemplo              |
+| ------------------ | ----------------------------------------- | ------- | -------------------- |
+| nif_fundo          | NIF do fundo regulamentado                | String  | 000000000            |
+| nome_fundo         | Nome do fundo regulamentado               | String  | ZPX                  |
+| numero_imovel      | Identificador do imóvel                   | String  | 1                    |
+| endereco           | Endereço completo                         | String  | Rua 12 de Julho, 45  |
+| localidade         | Cidade ou localidade                      | String  | Luanda               |
+| nome_perito_1      | Nome do perito avaliador 1                | String  | Carlos Mendes        |
+| nome_perito_2      | Nome do perito avaliador 2                | String  | Ana Sousa            |
+| nome_perito_3      | Nome do perito avaliador 3                | String  | Pedro António        |
+| dt_aquisicao       | Data de aquisição                         | Date    | 2024-01-20           |
+| dt_avaliacao       | Data da avaliação                         | Date    | 2025-10-01           |
+| avaliacao_perito_1 | Valor da avaliação perito 1               | Decimal | 15000000.00          |
+| avaliacao_perito_2 | Valor da avaliação perito 2               | Decimal | 15100000.00          |
+| avaliacao_perito_3 | Valor da avaliação perito 3               | Decimal | 14900000.00          |
+| avaliacao_media    | Média das avaliações                      | Decimal | 15000000.00          |
 
 ---
 
@@ -106,48 +115,61 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 ```json
 {
   "ano": 2025,
-  "trimestre": 2,
+  "trimestre": 3,
   "participantes": [
     {
+      "nif_fundo": "000000000",
+      "nome_fundo": "ZPX",
       "categoria_up": "Categoria A",
       "nome": "João Manuel Silva",
       "nif": "5001234567",
-      "nif_fundo": "5000000001",
-      "nome_fundo": "Fundo Exemplo",
       "dt_subscricao": "2025-09-15",
-      "valor_nominal_up": 1000,
+      "valor_nominal_up": 1000.00,
       "quantidade_up_subscritas": 50,
-      "valor_subscrito": 50000,
-      "valor_liquidado": 50000,
-      "valor_actual_up": 52000,
-      "nivel_risco_BCFTPADM": "Médio"
+      "valor_subscrito": 50000.00,
+      "valor_liquidado": 50000.00,
+      "dt_resgate": null,
+      "valor_nominal_up_resgate": 0.00,
+      "quantidade_up_resgatadas": 0,
+      "valor_regatados": 0.00,
+      "valor_actual_up": 52000.00,
+      "nivel_risco": "Médio"
     }
   ],
-  "oicGeral": [
+  "activosFinanceiros": [
     {
-      "indice": "1.1",
-      "descricao": "Obrigações do Estado",
+      "nif_fundo": "000000000",
+      "nome_fundo": "ZPX",
+      "conta": "3210.10.001",
+      "descricao": "INSTRUMENTOS FINANCEIROS NEGOCIADOS EM MERCADO REGULAMENTADO",
       "moeda": "AKZ",
-      "qtd_mnt": 100,
-      "cotacao": 1500,
-      "valias": 500,
-      "valor": 150000,
-      "juro": 3000,
-      "total": 153000,
-      "peso": 10
+      "dt_cambio": "2026-03-31",
+      "cambio": 1.00,
+      "quantidade": 200,
+      "valor_de_mercado": 240000.00,
+      "valias": 1000.00,
+      "valor": 240000.00,
+      "juro": 5000.00,
+      "total": 245000.00,
+      "percentagem": 25.00
     }
   ],
-  "oicImoveis": [
+  "activosImobiliarios": [
     {
-      "numero_imovel": 1,
+      "nif_fundo": "000000000",
+      "nome_fundo": "ZPX",
+      "dt_aquisicao": "2024-01-20",
+      "numero_imovel": "1",
       "endereco": "Rua 12 de Julho, nº 45",
       "localidade": "Luanda",
       "nome_perito_1": "Carlos Mendes",
       "nome_perito_2": "Ana Sousa",
       "nome_perito_3": "Pedro António",
-      "avaliacao_media": 15000000,
-      "percentual": 15,
-      "data": "2025-10-01"
+      "dt_avaliacao": "2025-10-01T09:00:00Z",
+      "avaliacao_perito_1": 15000000.00,
+      "avaliacao_perito_2": 15100000.00,
+      "avaliacao_perito_3": 14900000.00,
+      "avaliacao_media": 15000000.00
     }
   ]
 }
