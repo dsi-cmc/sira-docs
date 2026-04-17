@@ -6,33 +6,19 @@
       "nif_fundo": "000000000",
       "nome_fundo": "ZPX",
       "categoria_up": "Categoria A",
-      "nome": "João Manuel Silva - Atualizado",
+      "nome": "João Manuel Silva - Actualizado",
       "nif": "5001234567",
       "dt_subscricao": "2025-09-15",
       "valor_nominal_up": 1050.00,
       "quantidade_up_subscritas": 50,
       "valor_subscrito": 52500.00,
       "valor_liquidado": 52500.00,
+      "dt_resgate": null,
+      "valor_nominal_up_resgate": 0.00,
+      "quantidade_up_resgatadas": 0,
+      "valor_regatados": 0.00,
       "valor_actual_up": 53000.00,
       "nivel_risco": "Baixo"
-    }
-  ],
-  "activosFinanceiros": [
-    {
-      "nif_fundo": "000000000",
-      "nome_fundo": "ZPX",
-      "conta": "3210.10.001",
-      "descricao": "INSTRUMENTOS FINANCEIROS - CORRIGIDO",
-      "moeda": "AKZ",
-      "dt_cambio": "2026-03-31",
-      "cambio": 1.00,
-      "quantidade": 210,
-      "valor_de_mercado": 250000.00,
-      "valias": 1200.00,
-      "valor": 250000.00,
-      "juro": 5500.00,
-      "total": 255500.00,
-      "percentagem": 26.00
     }
   ]
 }

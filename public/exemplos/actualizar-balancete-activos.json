@@ -1,0 +1,30 @@
+{
+  "ano": 2025,
+  "trimestre": 2,
+  "nif_fundo": "540000000",
+  "total_up": 660170,
+  "activos": [
+    {
+      "num_conta": "1.1",
+      "conta_principal": "DISPONIBILIDADES",
+      "num_subconta": "1.10.10",
+      "subconta": "NUMERÁRIO",
+      "num_conta_movimento": "1.10.10.01",
+      "nome_conta": "Caixa Geral - Actualizado",
+      "debito": 65000.00,
+      "credito": 10000.00,
+      "saldo": 55000.00
+    },
+    {
+      "num_conta": "1.1",
+      "conta_principal": "DISPONIBILIDADES",
+      "num_subconta": "1.10.20",
+      "subconta": "DISPONIBILIDADES EM INSTITUIÇÕES FINANCEIRAS",
+      "num_conta_movimento": "1.10.20.10",
+      "nome_conta": "Depósitos à Ordem em Moeda Nacional",
+      "debito": 55000.00,
+      "credito": 20000.00,
+      "saldo": 35000.00
+    }
+  ]
+}
