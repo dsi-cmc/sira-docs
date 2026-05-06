@@ -1,0 +1,24 @@
+{
+  "ano": 2025,
+  "trimestre": 3,
+  "participantes": [
+    {
+      "nif_fundo": "000000000",
+      "nome_fundo": "ZPX",
+      "categoria_up": "Categoria A",
+      "nome": "João Manuel Silva - Actualizado",
+      "nif": "5001234567",
+      "dt_subscricao": "2025-09-15",
+      "valor_nominal_up": 1050.00,
+      "quantidade_up_subscritas": 50,
+      "valor_subscrito": 52500.00,
+      "valor_liquidado": 52500.00,
+      "dt_resgate": null,
+      "valor_nominal_up_resgate": 0.00,
+      "quantidade_up_resgatadas": 0,
+      "valor_regatados": 0.00,
+      "valor_actual_up": 53000.00,
+      "nivel_risco": "Baixo"
+    }
+  ]
+}

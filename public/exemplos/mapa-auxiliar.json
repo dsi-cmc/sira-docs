@@ -1,6 +1,6 @@
 {
   "ano": 2025,
-  "trimestre": 2,
+  "trimestre": 3,
   "participantes": [
     {
       "nif_fundo": "000000000",
@@ -21,7 +21,7 @@
       "nivel_risco": "Médio"
     }
   ],
-  "oicGeral": [
+  "activosFinanceiros": [
     {
       "nif_fundo": "000000000",
       "nome_fundo": "ZPX",
@@ -263,7 +263,7 @@
       "percentagem": 5.00
     }
   ],
-  "oicImoveis": [
+  "activosImobiliarios": [
     {
       "nif_fundo": "000000000",
       "nome_fundo": "ZPX",

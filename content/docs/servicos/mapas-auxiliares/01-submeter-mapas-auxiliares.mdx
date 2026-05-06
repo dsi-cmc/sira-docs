@@ -13,7 +13,7 @@ Os documentos integrantes deste reporte são:
 - **Mapa da Carteira de Activos Financeiros**: documento discriminado dos activos financeiros e passivos que compõem a carteira do OIC;
 - **Mapa da Carteira de Activos Imobiliários**: documento discriminado dos activos imobiliários que compõem a carteira do OIC.
 
-A submissão deve ser feita de forma agregada, contendo todos os registos para o período (ano e trimestre) especificado.
+A submissão inicial deve ser feita de forma agregada, contendo obrigatoriamente todos os registos para o período (ano e trimestre) especificado.
 
 > **Observação:** Todo o reporte deve ser enviado em formato `.JSON`. O modelo Excel disponibilizado serve apenas como referência para estruturação de dados.
 
@@ -31,7 +31,7 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 
 ## Regras de negócio relevantes
 
-- **Unicidade:** Só é permitida uma submissão por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
+- **Unicidade:** Só é permitida uma submissão inicial por trimestre. Caso necessite de corrigir dados, deverá utilizar o serviço de actualização.
 - **Formato:** Exclusivamente formato `.JSON`.
 - **Campos Obrigatórios:** Todos os arrays (`participantes`, `activosFinanceiros`, `activosImobiliarios`) devem conter pelo menos um registo.
 - **Penalidade por Mora:** Se o reporte for submetido após o encerramento do trimestre (8 dias após o fim do período regulamentar), o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `SUBMETIDO COM PENALIDADE`.
@@ -129,14 +129,14 @@ A submissão deve ser feita de forma agregada, contendo todos os registos para o
 ```json
 {
   "ano": 2025,
-  "trimestre": 2,
+  "trimestre": 3,
   "participantes": [
     {
+      "nif_fundo": "5000000001",
+      "nome_fundo": "Fundo Exemplo",
       "categoria_up": "Categoria A",
       "nome": "João Manuel Silva",
       "nif": "5001234567",
-      "nif_fundo": "5000000001",
-      "nome_fundo": "Fundo Exemplo",
       "dt_subscricao": "2025-01-15",
       "valor_nominal_up": 1000,
       "quantidade_up_subscritas": 50,

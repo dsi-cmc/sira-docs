@@ -47,8 +47,8 @@ Permite listar todos os mapas auxiliares submetidos pela entidade, com suporte a
 | --------------- | --------------------------------------------------------| ----------------------------------- |
 | Método HTTP     | GET                                                     | Consulta de dados                   |
 | Autorização     | Bearer Token                                            | Obrigatório                         |
-| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar      | Endpoint de consulta                |
-| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar   | Endpoint de teste                   |
+| URL Produção    | https://reportes.cmc.ao/api/reportes/mapa-auxiliar/{ano}/{trimestre} | Endpoint de consulta |
+| URL Homologação | https://reporteshml.cmc.ao/api/reportes/mapa-auxiliar/{ano}/{trimestre} | Endpoint de teste |
 
 ---
 
@@ -60,26 +60,62 @@ Permite listar todos os mapas auxiliares submetidos pela entidade, com suporte a
   "mensagem": "Mapa auxiliar obtidos com sucesso.",
   "dados": {
     "ano": 2025,
-    "trimestre": 1,
+    "trimestre": 3,
     "participantes": [
       {
         "id": 1,
+        "nif_fundo": "5000000001",
+        "nome_fundo": "Fundo Exemplo",
         "categoria_up": "Retalho",
         "nome": "João Silva",
         "nif": "123456789",
-        "nif_fundo": "5000000001",
-        "nome_fundo": "Fundo Exemplo",
         "dt_subscricao": "2025-01-15",
         "valor_nominal_up": 1000,
         "quantidade_up_subscritas": 10,
         "valor_subscrito": 10000,
         "valor_liquidado": 10000,
         "valor_actual_up": 1050,
-        "nivel_risco": "Baixo"
+        "nivel_risco": "Baixo",
+        "status": "SUBMETIDO"
       }
     ],
-    "activosFinanceiros": [...],
-    "activosImobiliarios": [...]
+    "activosFinanceiros": [
+      {
+        "id": 1,
+        "nif_fundo": "5000000001",
+        "nome_fundo": "Fundo Exemplo",
+        "conta": "1.1",
+        "descricao": "Obrigações do Estado",
+        "moeda": "AKZ",
+        "quantidade": 100,
+        "valor_de_mercado": 1500,
+        "valias": 500,
+        "valor": 150000,
+        "juro": 3000,
+        "total": 153000,
+        "percentagem": 10,
+        "status": "SUBMETIDO"
+      }
+    ],
+    "activosImobiliarios": [
+      {
+        "id": 1,
+        "nif_fundo": "5000000001",
+        "nome_fundo": "Fundo Exemplo",
+        "numero_imovel": "IMOV-001",
+        "endereco": "Rua 12 de Julho, nº 45",
+        "localidade": "Luanda",
+        "nome_perito_1": "Carlos Mendes",
+        "nome_perito_2": "Ana Sousa",
+        "nome_perito_3": "Pedro António",
+        "dt_avaliacao": "2025-10-01",
+        "avaliacao_perito_1": 15000000,
+        "avaliacao_perito_2": 15000000,
+        "avaliacao_perito_3": 15000000,
+        "avaliacao_media": 15000000,
+        "status": "SUBMETIDO"
+      }
+    ]
   }
 }
 ```

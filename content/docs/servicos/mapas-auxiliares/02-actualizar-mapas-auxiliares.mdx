@@ -14,13 +14,17 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
 - Utilizado para corrigir erros detectados após a submissão inicial.
 - Deve ser usado quando a entidade supervisionada identifica discrepâncias nos dados já enviados à CMC.
 
+**URLs de referência de modelo (disponíveis em /exemplos):**
+
+- Modelo JSON de Actualização: [/exemplos/actualizar-mapa-auxiliar-modelo.json](/exemplos/actualizar-mapa-auxiliar-modelo.json)
+
 ## Regras de negócio relevantes
 
 - **Identificadores Únicos:** A actualização baseia-se em chaves únicas para cada tipo de registo:
   - **Participantes:** Baseado no `nif`.
   - **Activos Financeiros:** Baseado na `conta`.
   - **Activos Imobiliários:** Baseado no `numero_imovel`.
-- **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `activosFinanceiros`, `activosImobiliarios`).
+- **Flexibilidade:** Pode enviar um, dois ou os três blocos de dados (`participantes`, `activosFinanceiros`, `activosImobiliarios`). O sistema só processará os arrays que forem incluídos no JSON.
 - **Data de Referência:** O `ano` e `trimestre` são obrigatórios para identificar o período a actualizar.
 - **Penalidade por Mora:** Se a actualização ocorrer após o prazo regulamentar, o sistema registará o envio com penalidade por incumprimento do prazo, e o status de resposta será `ACTUALIZADO COM PENALIDADE`.
 
@@ -43,21 +47,25 @@ Permite a actualização de registos já submetidos num determinado trimestre. A
 ```json
 {
   "ano": 2025,
-  "trimestre": 1,
+  "trimestre": 3,
   "participantes": [
     {
-      "categoria_up": "Retalho",
-      "nome": "Investidor Exemplo Actualizado",
-      "nif": "123456789",
-      "nif_fundo": "5000000001",
-      "nome_fundo": "Fundo Exemplo",
-      "dt_subscricao": "2025-02-10",
-      "valor_nominal_up": 1100,
-      "quantidade_up_subscritas": 5,
-      "valor_subscrito": 5500,
-      "valor_liquidado": 5500,
-      "valor_actual_up": 1100,
-      "nivel_risco": "Médio"
+      "nif_fundo": "000000000",
+      "nome_fundo": "ZPX",
+      "categoria_up": "Categoria A",
+      "nome": "João Manuel Silva - Atualizado",
+      "nif": "5001234567",
+      "dt_subscricao": "2025-09-15",
+      "valor_nominal_up": 1050.00,
+      "quantidade_up_subscritas": 50,
+      "valor_subscrito": 52500.00,
+      "valor_liquidado": 52500.00,
+      "dt_resgate": null,
+      "valor_nominal_up_resgate": 0.00,
+      "quantidade_up_resgatadas": 0,
+      "valor_regatados": 0.00,
+      "valor_actual_up": 53000.00,
+      "nivel_risco": "Baixo"
     }
   ]
 }
