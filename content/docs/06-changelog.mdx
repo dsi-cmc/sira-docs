@@ -1,0 +1,79 @@
+---
+title: Changelog
+---
+
+# Changelog
+
+Histórico de versões e actualizações do sistema SIRA — API de Reportes da CMC.
+
+---
+
+## v2.3.0 — Maio 2026
+
+### Mapas Auxiliares
+
+- Novo campo `dt_resgate` nos participantes dos Mapas Auxiliares — regista a data de resgate de Unidades de Participação, quando aplicável.
+
+---
+
+## v2.2.0 — Abril 2026
+
+### Mapas Auxiliares
+
+- Campos `nome_fundo` e `nif_fundo` adicionados aos arrays `participantes` e `activosFinanceiros` — permitem identificar o fundo regulamentado no contexto de cada registo.
+- Modelos de referência actualizados (Excel e JSON) para reflectir os novos campos.
+
+---
+
+## v2.1.0 — Março 2026
+
+### Novos Serviços
+
+- Documentação completa dos **Mapas Auxiliares** para Organismos de Investimento Colectivo (OIC):
+  - Submissão de Mapas Auxiliares (participantes, activos financeiros e activos imobiliários).
+  - Actualização de Mapas Auxiliares já submetidos.
+  - Listagem de Mapas Auxiliares por ano e trimestre.
+
+### Melhorias Gerais
+
+- Suporte a modo escuro na interface da documentação.
+- Formulário de suporte técnico integrado na documentação.
+- Documentação dos requisitos de Firewall: porta **443 (HTTPS)** obrigatória para `reportes.cmc.ao` e `reporteshml.cmc.ao`.
+
+---
+
+## v2.0.0 — Fevereiro 2026
+
+### Reporte de Balancetes
+
+- Novo campo opcional **`nome_fundo`** — identifica o fundo sob gestão para o qual a entidade submete o balancete.
+- Novo campo opcional **`nif_fundo`** — Número de Identificação Fiscal do fundo gerido.
+- Novo campo obrigatório **`total_up`** — quantidade de Unidades de Participação (UP) associadas ao fundo no momento do reporte.
+
+> Estes campos permitem que Sociedades Gestoras submetam balancetes em nome dos fundos sob a sua gestão.
+
+---
+
+## v1.1.0 — Dezembro 2025
+
+### Melhorias
+
+- Ambiente de **homologação** disponível em `reporteshml.cmc.ao` — permite validar integrações antes da submissão em produção.
+- Parâmetros iniciais dos balancetes documentados (grupos contabilísticos obrigatórios).
+- Reestruturação do menu de navegação da documentação.
+- Actualização do framework da documentação (Next.js / React).
+
+---
+
+## v1.0.0 — Novembro 2025
+
+### Lançamento Inicial
+
+- Documentação técnica do sistema SIRA publicada.
+- Serviço de **autenticação** (Login) com Bearer Token.
+- Serviço de **submissão de Balancetes** trimestrais.
+- Serviço de **actualização de Balancetes** já submetidos.
+- Serviço de **listagem de Balancetes** por ano e trimestre.
+- Grupos contabilísticos suportados: `activos`, `passivos`, `compensacaoActiva`, `compensacaoPassiva`, `fundosProprios`, `resultados`, `fluxosDeCaixa`.
+- **Glossário** de termos técnicos e regulatórios.
+- Link para a especificação técnica oficial (PDF).
