@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
-    "start": "next start",
+    "dev": "node scripts/run-with-port.js dev",
+    "start": "node scripts/run-with-port.js start",
     "postinstall": "fumadocs-mdx",
     "lint": "eslint"
   },
